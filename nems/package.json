@@ -1,0 +1,75 @@
+{
+  "name": "nems",
+  "version": "0.0.1",
+  "description": "Node Express MongoDB Starterkit",
+  "main": "index.js",
+  "scripts": {
+    "docker-start-dev": "docker-compose -f docker-compose.yml up",
+    "docker-start-debug": "docker-compose -f docker-compose.yml -f docker-compose.debug.yml up",
+    "docker-stop": "docker-compose down",
+    "start": "node src/index",
+    "start-dev": "nodemon --watch src --watch test --exec \"node src/index\"",
+    "start-debug": "nodemon --inspect=0.0.0.0:9229 --watch src src/index.js",
+    "test": "jest --runInBand",
+    "test-cover": "jest --runInBand --coverage"
+  },
+  "author": {
+    "name": "Lama",
+    "email": "lama@illuin.tech",
+    "url": "https://illuin.tech"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "atob": ">=2.1.0",
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "cors": "^2.8.4",
+    "cryptiles": ">=4.1.2",
+    "deep-extend": ">=0.5.1",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "helmet": "^3.11.0",
+    "http-status-codes": "^1.3.0",
+    "lodash": "^4.17.5",
+    "merge": ">=1.2.1",
+    "mongoose": "^5.4.13",
+    "morgan": "^1.9.1",
+    "multer": "^1.3.0",
+    "randomatic": ">=3.0.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "serve-favicon": "^2.5.0",
+    "sshpk": ">=1.13.2",
+    "typescript": "^3.3.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.18.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.4.2",
+    "mongodb-memory-server": "^1.7.0",
+    "regenerator-runtime": "^0.11.1",
+    "superagent": "^3.8.2",
+    "supertest": "^3.0.0",
+    "bootstrap": "^4.3.1",
+    "nodemon": "^1.18.10"
+  },
+  "jest": {
+    "transform": {},
+    "testEnvironment": "node"
+  }
+}
