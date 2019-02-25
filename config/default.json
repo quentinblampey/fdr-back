@@ -1,0 +1,12 @@
+{
+    "web": {
+        "port": 8080
+    },
+    "db": {
+        "host": "db",
+        "port": 27017,
+        "database": "nems-db",
+        "user": "",
+        "password": ""
+    }
+}
