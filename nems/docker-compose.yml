@@ -3,7 +3,7 @@ services:
   app:
     build: 
       context: ./
-      dockerfile: ./DockerFile
+      dockerfile: ./Dockerfile
     container_name: nems-web
     ports:
     - "8080:8080"
@@ -29,3 +29,15 @@ services:
     volumes:
       - ./data/db:/data/db
     command: mongod --smallfiles --logpath=/dev/null # --quiet
+  mongo-seed:
+    build: .
+    environment:
+      - MONGO_HOST=db
+      - MONGO_PORT=27017
+    volumes:
+      - ./data/db:/data/db
+    depends_on:
+      - db
+    command: 
+      "mongoimport --host db --port 27017 --db api --collection quesions --type json --file /data/db/questionsPrenomSport.json --jsonArray"
+    
