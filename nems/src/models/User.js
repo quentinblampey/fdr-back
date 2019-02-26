@@ -6,9 +6,9 @@ var UserSchema = new mongoose.Schema({
   currentBreak : [Number],
   nextBreak : [Number],
   details: {name:String, sportBeforeComing:String,sportNow:String,clubFound:String,sportNowIsFun:String},
-  numberChats : [Date],
+  numberChats : [String],
   numberQuestions : Number,
-  score: {motivation: Number, fidelity: Number, lifestyle: Number, integration: Number, noOrientation: Number}
+  score: {motivation: {type: Number, default: -1}, fidelity: {type: Number, default: -1}, lifestyle: {type: Number, default: -1}, integration: {type: Number, default: -1}, noOrientation: {type: Number, default: -1}}
 });
 
 module.exports = mongoose.model('User', UserSchema);
