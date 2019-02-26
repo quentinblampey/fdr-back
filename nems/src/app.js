@@ -10,6 +10,7 @@ const answers = require('./routes/answers');
 const questions = require('./routes/questions');
 const file = require('./routes/file');
 const enseignants = require('./routes/enseignants');
+const stats = require('./routes/stats');
 
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/api/answers', answers);
 app.use('/api/questions', questions);
 app.use('/api/file', file);
 app.use('/api/enseignants', enseignants);
+app.use('/api/stats', stats);
 
 
 // Basic error handling middleware
