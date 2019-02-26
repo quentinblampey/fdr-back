@@ -45,3 +45,5 @@ docker exec -i -t nems-web /bin/bash
 # Run tests suite
 npm run test
 ```
+
+http://localhost:8080/api/file
