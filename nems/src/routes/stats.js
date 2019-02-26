@@ -12,11 +12,11 @@ router.post('/global', (req, res, next) => {
     let taille=0;
         User.find({}, (err, users) => {
             users.forEach(student => {
-                console.log(student.score);
-                let score = student.score[req.body.field];
+                //let score = student.score[req.body.field];
+                let score = range*Math.random();
                 console.log(score);
                 if (score >= 0) {
-                    taille+=1;
+                    taille += 1;
                     if (score < val1) {
                         nb[0] += topercent;
                     } else if (score < val2) {
@@ -26,9 +26,11 @@ router.post('/global', (req, res, next) => {
                     }
                 }
             });
+            let final=[0, 0, 0];
+            console.log(taille);
+            nb.forEach((n, i) => {final[i] = n / taille});
+            res.send(final);
         });
-    nb.forEach((n, i) => {nb[i] = n/taille})
-    res.send(nb);
 });
 
 function updateFidelity (user) {
