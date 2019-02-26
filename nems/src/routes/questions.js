@@ -42,14 +42,13 @@ router.post('/:idQ', function(req, res, next) {
   });
 });
 */
-
+ 
 /* Find Question */
 router.post('/:id', function(req, res, next) {
   User.findById(req.params.id, function (err, user) {
     if (err) {return next(err)};
-    console.log(new Date())
-    //user.numberChats.push(new Date.now())
-    //user.markModified('numberChats');
+    user.numberChats.push(Date.now().toString())
+    user.markModified('numberChats'); 
     if (user.currentBreak.length==0) {
       user.currentBreak = user.nextBreak;
       user.nextBreak = [];
@@ -63,7 +62,7 @@ router.post('/:id', function(req, res, next) {
         if (err) return next(err);
         if (post.personalized) {
           post = construct(post,user.details)
-        }
+        } 
         res.json({ question : post, isFinish : false, user : user});
       });
     }

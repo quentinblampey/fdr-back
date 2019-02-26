@@ -15,10 +15,10 @@ router.post('/initget', function(req, res, next) {
         if (err) return next(err);
         console.log("Created !")
         res.json(post);
-      });
+      }); 
     } else {
     res.json(post);}
-  });
+  }); 
 });
 
 /*  GET USER BY ID*/
