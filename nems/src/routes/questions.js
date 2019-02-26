@@ -47,8 +47,10 @@ router.post('/:idQ', function(req, res, next) {
 router.post('/:id', function(req, res, next) {
   User.findById(req.params.id, function (err, user) {
     if (err) {return next(err)};
-    user.numberChats.push(Date.now().toString())
-    user.markModified('numberChats'); 
+    var date = (new Date()).toJSON();
+    user.numberChats.push(date.toString())
+    console.log(user.numberChats)
+    user.markModified('numberChats');
     if (user.currentBreak.length==0) {
       user.currentBreak = user.nextBreak;
       user.nextBreak = [];

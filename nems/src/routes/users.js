@@ -9,7 +9,6 @@ router.post('/initget', function(req, res, next) {
     if (err) { return next(err) };
     if (post === null) {
       console.log("creating...")
-      const date = Date.now
       firstTrees = [ 4, 1 ];
       User.create({pseudo: req.body.pseudo, registration: Date.now().toString(), numberQuestions: 0, numberChats: [],  currentBreak : firstTrees, nextBreak : [], details: {name: "", sport: ""}}, function (err, post) {
         if (err) return next(err);
