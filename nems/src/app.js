@@ -8,6 +8,7 @@ const book = require('./routes/book');
 const users = require('./routes/users');
 const answers = require('./routes/answers');
 const questions = require('./routes/questions');
+const enseignants = require('./routes/enseignants');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/book', book);
 app.use('/api/users', users);
 app.use('/api/answers', answers);
 app.use('/api/questions', questions);
+app.use('/api/enseignants', enseignants);
 
 // Basic error handling middleware
 app.use(errorHandler);

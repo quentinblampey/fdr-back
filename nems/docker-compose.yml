@@ -29,3 +29,5 @@ services:
     volumes:
       - ./data/db:/data/db
     command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+      

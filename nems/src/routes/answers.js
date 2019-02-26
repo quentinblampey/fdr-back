@@ -29,6 +29,7 @@ router.post('/', function(req, res, next) {
 router.post('/:id', function(req, res, next) {
   User.findById(req.params.id, function (err, user) {
     if (err) {return next(err)};
+    user.numberQuestions=user.numberQuestions + 1
     answer = req.body.answer;
     if (req.body.field) {
       user.details[req.body.field] = answer.detail;
