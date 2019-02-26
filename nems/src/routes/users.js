@@ -8,10 +8,10 @@ router.post('/initget', function(req, res, next) {
   User.findOne({pseudo : req.body.pseudo}, function (err, post) {
     if (err) { return next(err) };
     if (post === null) {
-      console.log("create !")
-
+      console.log("creating...")
+      const date = Date.now
       firstTrees = [ 4, 1 ];
-      User.create({pseudo: req.body.pseudo, currentBreak : firstTrees, nextBreak : [], details: {name: "", sport: ""}}, function (err, post) {
+      User.create({pseudo: req.body.pseudo, registration: Date.now().toString(), numberQuestions: 0, numberChats: [],  currentBreak : firstTrees, nextBreak : [], details: {name: "", sport: ""}}, function (err, post) {
         if (err) return next(err);
         console.log("Created !")
         res.json(post);
@@ -47,6 +47,15 @@ router.put('/:id', function(req, res, next) {
     field = req.body.field;
     post.details[field] = req.body.answer.detail;
     post.save();
+    res.json(post);
+  });
+});
+
+
+/* UPDATE User AFTER END OF CHAT */
+router.put('/endchat/:id', function(req, res, next) {
+  User.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
     res.json(post);
   });
 });
