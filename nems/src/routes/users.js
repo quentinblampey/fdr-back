@@ -38,6 +38,26 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/sorted/:filter', function(req, res, next) {
+  console.log('Will it work ??');
+  var queryParam = {};
+  queryParam[req.params.filter.toString()] = -1;
+  User.find({}, null, {sort: queryParam}, function (err, users) {
+    if (err) {return next(err)};
+    res.json(users);
+  });
+});
+
+router.get('/sorted/score/:filter', function(req, res, next) {
+  console.log('Will it work ??');
+  var queryParam = {};
+  queryParam['score.'+req.params.filter.toString()] = -1;
+  User.find({}, null, {sort: queryParam}, function (err, users) {
+    if (err) {return next(err)};
+    res.json(users);
+  });
+});
+
 
 /* UPDATE User */
 router.put('/:id', function(req, res, next) {
