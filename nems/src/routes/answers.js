@@ -1,18 +1,18 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var mongoose = require('mongoose');
-var User = require('../models/User.js');
-var Answer = require('../models/Answer.js');
+var mongoose = require("mongoose");
+var User = require("../models/User.js");
+var Answer = require("../models/Answer.js");
+const updateStats = require("./updateStats");
 
 /* GET ALL Answers */
 
-router.get('/', function(req, res, next) {
-  Answer.find(function (err, answers) {
+router.get("/", function(req, res, next) {
+  Answer.find(function(err, answers) {
     if (err) return next(err);
     res.json(answers);
   });
 });
-
 
 /* SAVE Answer */
 /*
@@ -26,10 +26,12 @@ router.post('/', function(req, res, next) {
 
 /* Send Answer */
 
-router.post('/:id', function(req, res, next) {
-  User.findById(req.params.id, function (err, user) {
-    if (err) {return next(err)};
-    user.numberQuestions=user.numberQuestions + 1
+router.post("/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    user.numberQuestions = user.numberQuestions + 1;
     answer = req.body.answer;
     if (req.body.field) {
       user.details[req.body.field] = answer.detail;
@@ -37,27 +39,27 @@ router.post('/:id', function(req, res, next) {
     if (answer.idQ != 0) {
       if (answer.breakPoint) {
         user.nextBreak.push(answer.idQ);
-      }
-      else {
+      } else {
         user.currentBreak.push(answer.idQ);
       }
     }
+    updateStats(user);
     user.save();
     res.json(user);
   });
 });
 
 /* UPDATE Answer */
-router.put('/:id', function(req, res, next) {
-  Answer.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+router.put("/:id", function(req, res, next) {
+  Answer.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
 /* DELETE Answer */
-router.delete('/:id', function(req, res, next) {
-  Answer.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+router.delete("/:id", function(req, res, next) {
+  Answer.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
