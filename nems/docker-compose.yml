@@ -3,7 +3,7 @@ services:
   app:
     build: 
       context: ./
-      dockerfile: ./Dockerfile
+      dockerfile: ./DockerFile
     container_name: nems-web
     ports:
     - "8080:8080"
