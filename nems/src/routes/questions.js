@@ -5,7 +5,8 @@ var Question = require("../models/Question");
 var User = require("../models/User.js");
 var construct = require("../models/Question.construct");
 
-/* GET ALL QUESTIONS */
+/* 
+GET ALL QUESTIONS
 
 router.get("/", function(req, res, next) {
   Question.find(function(err, questions) {
@@ -13,6 +14,8 @@ router.get("/", function(req, res, next) {
     res.json(questions);
   });
 });
+
+*/
 
 /* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
 
@@ -48,21 +51,20 @@ router.post("/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    user.markModified("numberChats");
     if (user.currentBreak.length == 0) {
       user.currentBreak = user.nextBreak;
       user.nextBreak = [];
       user.save();
       res.json({ question: {}, isFinish: true, user: user });
     } else {
-      idQ = user.currentBreak.pop();
+      idQ = user.currentBreak[user.currentBreak.length - 1];
       user.save();
-      Question.findOne({ idQ: idQ }, function(err, post) {
+      Question.findOne({ idQ: idQ }, function(err, question) {
         if (err) return next(err);
-        if (post.personalized) {
-          post = construct(post, user.details);
+        if (question.personalized) {
+          question = construct(question, user.details);
         }
-        res.json({ question: post, isFinish: false, user: user });
+        res.json({ question: question, isFinish: false, user: user });
       });
     }
   });

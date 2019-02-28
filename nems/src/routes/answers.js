@@ -32,6 +32,7 @@ router.post("/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
+    user.currentBreak.pop();
     user.numberQuestions = user.numberQuestions + 1;
     answer = req.body.answer;
     if (req.body.field) {
