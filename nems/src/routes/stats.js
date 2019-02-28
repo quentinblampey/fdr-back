@@ -7,6 +7,8 @@ const val1 = 3;
 const val2 = 7;
 const topercent = 100;
 
+// This fontion computes the global statics in order to draw the repartition charts
+
 router.post("/global", (req, res, next) => {
   let nb = [0, 0, 0];
   let taille = 0;

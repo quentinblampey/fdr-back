@@ -55,12 +55,29 @@ function fidelity(user) {
   }
 }
 
-function updateScore(user) {
-  user.score.motivation = 10 * Math.random();
-  user.score.lifestyle = 10 * Math.random();
-  user.score.noOrientation = 10 * Math.random();
-  user.score.integration = 10 * Math.random();
-  user.score.fidelity = fidelity(user);
+function motivation(user) {
+  return 10 * Math.random();
 }
 
-module.exports = updateScore;
+function lifestyle(user) {
+  return 10 * Math.random();
+}
+
+function noOrientation(user) {
+  return 10 * Math.random();
+}
+
+function integration(user) {
+  return 10 * Math.random();
+}
+
+// FUNCTION THAT UPDATE SCORES OF THE USER, EXCEPT FIDELITY, THAT SHOULD BE CALCULATED AT THE END OF A CHAT
+
+function updateScore(user) {
+  user.score.motivation = motivation(user);
+  user.score.lifestyle = lifestyle(user);
+  user.score.noOrientation = noOrientation(user);
+  user.score.integration = integration(user);
+}
+
+module.exports = { updateScore: updateScore, fidelity: fidelity };
