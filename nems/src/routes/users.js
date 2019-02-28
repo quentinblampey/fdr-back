@@ -14,6 +14,11 @@ router.post("/initget", function(req, res, next) {
     if (post === null) {
       console.log("creating...");
       firstTrees = [4, 1];
+      random1 = Math.random() <= 0.2;
+      random2 = Math.random() <= 0.05;
+      random3 = Math.random() <= 0.6;
+      random4 = Math.random() <= 0.3;
+      random5 = Math.random() <= 0.1;
       User.create(
         {
           pseudo: req.body.pseudo,
@@ -21,6 +26,13 @@ router.post("/initget", function(req, res, next) {
           numberQuestions: 0,
           numberChats: [],
           currentBreak: firstTrees,
+          caracteristics: {
+            athlete: random1,
+            disabled: random2,
+            employe: random3,
+            artist: random4,
+            biBachelor: random5
+          },
           nextBreak: [],
           details: { name: "", sport: "" }
         },
