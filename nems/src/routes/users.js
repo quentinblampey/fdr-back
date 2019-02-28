@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
-const updateStats = require("./updateStats");
+const updateScore = require("./updateScore").updateScore;
+const fidelity = require("./updateScore").fidelity;
 
 /* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
 router.post("/initget", function(req, res, next) {
@@ -45,7 +46,7 @@ router.get("/getid/:id", function(req, res, next) {
   });
 });
 
-/* GET ALL UserS */
+/* GET ALL USERS */
 
 router.get("/", function(req, res, next) {
   console.log("Will it work ??");
@@ -56,6 +57,8 @@ router.get("/", function(req, res, next) {
     res.json(users);
   });
 });
+
+/* GET ALL USERS SORTED ACCORDING TO FILTER */
 
 router.get("/sorted/:filter", function(req, res, next) {
   console.log("Will it work ??");
@@ -69,6 +72,8 @@ router.get("/sorted/:filter", function(req, res, next) {
   });
 });
 
+/* GET ALL USERS SORTED BY SCORE ACCORDING TO FILTER */
+
 router.get("/sorted/score/:filter", function(req, res, next) {
   console.log("Will it work ??");
   var queryParam = {};
@@ -81,33 +86,42 @@ router.get("/sorted/score/:filter", function(req, res, next) {
   });
 });
 
-/* UPDATE User */
+/* UPDATE USER AFTER THE END OF CHAT */
+
+router.put("/endchat/:id", function(req, res, next) {
+  User.findByIdAndUpdate(req.params.id, req.body, function(err, user) {
+    if (err) return next(err);
+    updateScore(user);
+    var date = new Date().toJSON();
+    user.numberChats.push(date.toString());
+    // user.score.fidelity = fidelity(user);
+    console.log("Chat is done !");
+    res.json(user);
+  });
+});
+
+/*
+UPDATE USER AFTER SENDING AN ANSWER, NOT NECESSARY
+
 router.put("/:id", function(req, res, next) {
   User.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     field = req.body.field;
     post.details[field] = req.body.answer.detail;
-    updateStats(post);
+    updateScore(post);
     post.save();
     res.json(post);
   });
 });
 
-/* UPDATE User AFTER END OF CHAT */
-router.put("/endchat/:id", function(req, res, next) {
-  User.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    updateStats(post);
-    res.json(post);
-  });
-});
+DELETE USER, NOT NECESSARY
 
-/* DELETE User NOT NECESSARY
 router.delete('/:id', function(req, res, next) {
   User.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
-});*/
+});
+*/
 
 module.exports = router;

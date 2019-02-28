@@ -3,9 +3,10 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var User = require("../models/User.js");
 var Answer = require("../models/Answer.js");
-const updateStats = require("./updateStats");
+const updateScore = require("./updateScore").updateScore;
 
-/* GET ALL Answers */
+/*
+GET ALL ANSWERS
 
 router.get("/", function(req, res, next) {
   Answer.find(function(err, answers) {
@@ -14,8 +15,8 @@ router.get("/", function(req, res, next) {
   });
 });
 
-/* SAVE Answer */
-/*
+SAVE Answer 
+
 router.post('/', function(req, res, next) {
   Answer.create(req.body, function (err, post) {
     if (err) return next(err);
@@ -24,7 +25,7 @@ router.post('/', function(req, res, next) {
 });
 */
 
-/* Send Answer */
+/* SEND ANSWERS */
 
 router.post("/:id", function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
@@ -43,13 +44,16 @@ router.post("/:id", function(req, res, next) {
         user.currentBreak.push(answer.idQ);
       }
     }
-    updateStats(user);
+    console.log("Updating stats...");
+    updateScore(user);
     user.save();
     res.json(user);
   });
 });
 
-/* UPDATE Answer */
+/*
+UPDATE Answer
+
 router.put("/:id", function(req, res, next) {
   Answer.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
@@ -57,12 +61,14 @@ router.put("/:id", function(req, res, next) {
   });
 });
 
-/* DELETE Answer */
+DELETE Answer
+
 router.delete("/:id", function(req, res, next) {
   Answer.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+*/
 
 module.exports = router;

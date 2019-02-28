@@ -1,19 +1,18 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var mongoose = require('mongoose');
-var Question = require('../models/Question');
-var User = require('../models/User.js');
-var construct = require('../models/Question.construct');
+var mongoose = require("mongoose");
+var Question = require("../models/Question");
+var User = require("../models/User.js");
+var construct = require("../models/Question.construct");
 
-/* GET ALL Questions */
+/* GET ALL QUESTIONS */
 
-router.get('/', function(req, res, next) {
-  Question.find(function (err, questions) {
+router.get("/", function(req, res, next) {
+  Question.find(function(err, questions) {
     if (err) return next(err);
     res.json(questions);
   });
 });
-
 
 /* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
 
@@ -42,49 +41,49 @@ router.post('/:idQ', function(req, res, next) {
   });
 });
 */
- 
-/* Find Question */
-router.post('/:id', function(req, res, next) {
-  User.findById(req.params.id, function (err, user) {
-    if (err) {return next(err)};
-    var date = (new Date()).toJSON();
-    user.numberChats.push(date.toString())
-    console.log(user.numberChats)
-    user.markModified('numberChats');
-    if (user.currentBreak.length==0) {
+
+/* FIND A NEW QUESTION AND CHECK IF THE CHAT IS FINISH */
+router.post("/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    user.markModified("numberChats");
+    if (user.currentBreak.length == 0) {
       user.currentBreak = user.nextBreak;
       user.nextBreak = [];
       user.save();
-      res.json({ question : {}, isFinish : true, user : user })
-    }
-    else {
+      res.json({ question: {}, isFinish: true, user: user });
+    } else {
       idQ = user.currentBreak.pop();
       user.save();
-      Question.findOne({idQ: idQ}, function (err, post) {
+      Question.findOne({ idQ: idQ }, function(err, post) {
         if (err) return next(err);
         if (post.personalized) {
-          post = construct(post,user.details)
-        } 
-        res.json({ question : post, isFinish : false, user : user});
+          post = construct(post, user.details);
+        }
+        res.json({ question: post, isFinish: false, user: user });
       });
     }
   });
 });
 
-/* UPDATE Question */
-router.put('/:id', function(req, res, next) {
-  Question.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+/*
+UPDATE Question 
+router.put("/:id", function(req, res, next) {
+  Question.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* DELETE Question */
-router.delete('/:id', function(req, res, next) {
-  Question.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+DELETE Question
+router.delete("/:id", function(req, res, next) {
+  Question.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+*/
 
 module.exports = router;
