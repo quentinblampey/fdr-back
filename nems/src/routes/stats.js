@@ -37,4 +37,17 @@ router.post("/global", (req, res, next) => {
   });
 });
 
+router.post("/profils", (req, res, next) => {
+  let nb=0;
+  let taille = 0;
+  User.find({}, (err, users) => {
+    users.forEach(student => {
+      nb+= Math.floor((2*Math.random()));
+      taille += 1;
+    });
+    console.log(nb,taille);
+    res.send({nb: 100*nb/taille});
+  });
+});
+
 module.exports = router;
