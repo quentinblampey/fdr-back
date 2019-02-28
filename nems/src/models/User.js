@@ -27,6 +27,13 @@ const UserSchema = new mongoose.Schema({
     lifestyle: { type: Number, default: -1 },
     integration: { type: Number, default: -1 },
     noOrientation: { type: Number, default: -1 }
+  },
+  historicScores: {
+    motivation: { type: [Number], default: [] },
+    fidelity: { type: [Number], default: [] },
+    lifestyle: { type: [Number], default: [] },
+    integration: { type: [Number], default: [] },
+    noOrientation: { type: [Number], default: [] }
   }
 });
 

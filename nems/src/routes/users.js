@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User.js");
 const updateScore = require("./updateScore").updateScore;
 const fidelity = require("./updateScore").fidelity;
+const saveScore = require("./updateScore").saveScore;
 
 /* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
 router.post("/initget", function(req, res, next) {
@@ -120,6 +121,18 @@ router.put("/endchat/:id", function(req, res, next) {
     user.save();
     console.log("Chat is done !");
     res.json(user);
+  });
+});
+
+/* SAVE USER SCORES */
+
+router.put("/save_scores", function(req, res, next) {
+  console.log("Saving scores");
+  User.find({}, (err, users) => {
+    users.forEach(user => {
+      saveScore(user);
+      user.save();
+    });
   });
 });
 

@@ -81,4 +81,18 @@ function updateScore(user) {
   user.score.integration = integration(user);
 }
 
-module.exports = { updateScore: updateScore, fidelity: fidelity };
+// SAVE SCORE OF THE USER IN HIS HISTORIC
+
+function saveScore(user) {
+  user.historicScores.motivation.push(user.score.motivation);
+  user.historicScores.lifestyle.push(user.score.lifestyle);
+  user.historicScores.fidelity.push(user.score.fidelity);
+  user.historicScores.integration.push(user.score.integration);
+  user.historicScores.noOrientation.push(user.score.noOrientation);
+}
+
+module.exports = {
+  updateScore: updateScore,
+  fidelity: fidelity,
+  saveScore: saveScore
+};
