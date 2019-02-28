@@ -94,7 +94,8 @@ router.put("/endchat/:id", function(req, res, next) {
     updateScore(user);
     var date = new Date().toJSON();
     user.numberChats.push(date.toString());
-    // user.score.fidelity = fidelity(user);
+    user.score.fidelity = fidelity(user);
+    user.save();
     console.log("Chat is done !");
     res.json(user);
   });

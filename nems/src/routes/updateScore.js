@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 function fidelity(user) {
   if (
     user.numberChats === undefined ||
@@ -16,11 +17,11 @@ function fidelity(user) {
       lastChat.split("T")[0].split("-")[1],
       lastChat.split("T")[0].split("-")[2]
     ];
-
+    const reg = user.registration + "";
     var dateRegistration = [
-      user.registration.split("T")[0].split("-")[0],
-      user.registration.split("T")[0].split("-")[1],
-      user.registration.split("T")[0].split("-")[2]
+      reg.split("T")[0].split("-")[0],
+      reg.split("T")[0].split("-")[1],
+      reg.split("T")[0].split("-")[2]
     ];
 
     if (today[1] - lastEval[1] >= 1 || today[0] - lastEval[0] >= 1) {
