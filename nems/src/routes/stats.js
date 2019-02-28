@@ -14,8 +14,8 @@ router.post("/global", (req, res, next) => {
   let taille = 0;
   User.find({}, (err, users) => {
     users.forEach(student => {
-      //let score = student.score[req.body.field];
-      let score = range * Math.random();
+      let score = student.score[req.body.field];
+      //let score = range * Math.random();
       console.log(score);
       if (score >= 0) {
         taille += 1;
