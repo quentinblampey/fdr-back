@@ -16,7 +16,6 @@ router.post("/global", (req, res, next) => {
     users.forEach(student => {
       //let score = student.score[req.body.field];
       let score = range * Math.random();
-      console.log(score);
       if (score >= 0) {
         taille += 1;
         if (score < val1) {
@@ -29,7 +28,6 @@ router.post("/global", (req, res, next) => {
       }
     });
     let final = [0, 0, 0];
-    console.log(taille);
     nb.forEach((n, i) => {
       final[i] = n / taille;
     });
@@ -45,7 +43,6 @@ router.post("/profils", (req, res, next) => {
       nb+= Math.floor((2*Math.random()));
       taille += 1;
     });
-    console.log(nb,taille);
     res.send({nb: 100*nb/taille});
   });
 });
