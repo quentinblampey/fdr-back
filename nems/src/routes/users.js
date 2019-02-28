@@ -49,7 +49,6 @@ router.get("/getid/:id", function(req, res, next) {
 /* GET ALL USERS */
 
 router.get("/", function(req, res, next) {
-  console.log("Will it work ??");
   User.find(function(err, users) {
     if (err) {
       return next(err);
@@ -61,7 +60,6 @@ router.get("/", function(req, res, next) {
 /* GET ALL USERS SORTED ACCORDING TO FILTER */
 
 router.get("/sorted/:filter", function(req, res, next) {
-  console.log("Will it work ??");
   var queryParam = {};
   queryParam[req.params.filter.toString()] = 1;
   User.find({}, null, { sort: queryParam }, function(err, users) {
@@ -75,10 +73,22 @@ router.get("/sorted/:filter", function(req, res, next) {
 /* GET ALL USERS SORTED BY SCORE ACCORDING TO FILTER */
 
 router.get("/sorted/score/:filter", function(req, res, next) {
-  console.log("Will it work ??");
   var queryParam = {};
   queryParam["score." + req.params.filter.toString()] = 1;
   User.find({}, null, { sort: queryParam }, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    res.json(users);
+  });
+});
+
+/* GET ALL USERS HAVING THE CARACTERISTIC FILTER */
+
+router.get("/sorted/caracteristics/:filter", function(req, res, next) {
+  var queryParam = {};
+  queryParam["caracteristics." + req.params.filter.toString()] = true;
+  User.find(queryParam, function(err, users) {
     if (err) {
       return next(err);
     }

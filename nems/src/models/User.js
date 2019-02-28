@@ -14,6 +14,13 @@ const UserSchema = new mongoose.Schema({
   },
   numberChats: [String],
   numberQuestions: Number,
+  caracteristics: {
+    athlete: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    employe: { type: Boolean, default: false },
+    artist: { type: Boolean, default: false },
+    biBachelor: { type: Boolean, default: false }
+  },
   score: {
     motivation: { type: Number, default: -1 },
     fidelity: { type: Number, default: -1 },
