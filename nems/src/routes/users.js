@@ -14,6 +14,11 @@ router.post("/initget", function(req, res, next) {
     if (post === null) {
       console.log("creating...");
       firstTrees = [4, 1];
+      random1 = Math.random() <= 0.2;
+      random2 = Math.random() <= 0.05;
+      random3 = Math.random() <= 0.6;
+      random4 = Math.random() <= 0.3;
+      random5 = Math.random() <= 0.1;
       User.create(
         {
           pseudo: req.body.pseudo,
@@ -21,6 +26,13 @@ router.post("/initget", function(req, res, next) {
           numberQuestions: 0,
           numberChats: [],
           currentBreak: firstTrees,
+          caracteristics: {
+            athlete: random1,
+            disabled: random2,
+            employe: random3,
+            artist: random4,
+            biBachelor: random5
+          },
           nextBreak: [],
           details: { name: "", sport: "" }
         },
@@ -49,7 +61,6 @@ router.get("/getid/:id", function(req, res, next) {
 /* GET ALL USERS */
 
 router.get("/", function(req, res, next) {
-  console.log("Will it work ??");
   User.find(function(err, users) {
     if (err) {
       return next(err);
@@ -61,7 +72,6 @@ router.get("/", function(req, res, next) {
 /* GET ALL USERS SORTED ACCORDING TO FILTER */
 
 router.get("/sorted/:filter", function(req, res, next) {
-  console.log("Will it work ??");
   var queryParam = {};
   queryParam[req.params.filter.toString()] = 1;
   User.find({}, null, { sort: queryParam }, function(err, users) {
@@ -75,10 +85,22 @@ router.get("/sorted/:filter", function(req, res, next) {
 /* GET ALL USERS SORTED BY SCORE ACCORDING TO FILTER */
 
 router.get("/sorted/score/:filter", function(req, res, next) {
-  console.log("Will it work ??");
   var queryParam = {};
   queryParam["score." + req.params.filter.toString()] = 1;
   User.find({}, null, { sort: queryParam }, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    res.json(users);
+  });
+});
+
+/* GET ALL USERS HAVING THE CARACTERISTIC FILTER */
+
+router.get("/sorted/caracteristics/:filter", function(req, res, next) {
+  var queryParam = {};
+  queryParam["caracteristics." + req.params.filter.toString()] = true;
+  User.find(queryParam, function(err, users) {
     if (err) {
       return next(err);
     }
