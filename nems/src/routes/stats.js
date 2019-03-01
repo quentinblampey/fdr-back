@@ -41,10 +41,12 @@ router.post("/profils", (req, res, next) => {
   let taille = 0;
   User.find({}, (err, users) => {
     users.forEach(student => {
-      nb += Math.floor(2 * Math.random());
+      if (student.caracteristics[req.body.profil]){
+        nb+=1
+      }
       taille += 1;
     });
-    res.send({ nb: (100 * nb) / taille });
+    res.send({ nb: parseFloat(Math.round(1000* nb / taille) / 10).toFixed(1)});
   });
 });
 
