@@ -10,7 +10,12 @@ const UserSchema = new mongoose.Schema({
     sportBeforeComing: String,
     sportNow: String,
     clubFound: String,
-    sportNowIsFun: String
+    sportNowIsFun: String,
+    timeToFac: String,
+    houseOk: String,
+    motivation: String,
+    changeOrientation: String,
+    integration: String
   },
   numberChats: [String],
   numberQuestions: Number,

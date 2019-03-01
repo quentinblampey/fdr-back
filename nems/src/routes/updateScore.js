@@ -57,19 +57,78 @@ function fidelity(user) {
 }
 
 function motivation(user) {
-  return 10 * Math.random();
+  // return 10 * Math.random();
+  let res = 0;
+  let weights = 0;
+  if (user.details.motivation != undefined) {
+    res += 2 * parseInt(user.details.motivation);
+    weights += 1;
+  }
+  if (weights != 0) {
+    return res / weights;
+  } else {
+    return -1;
+  }
 }
 
 function lifestyle(user) {
-  return 10 * Math.random();
+  // return 10 * Math.random();
+  let res = 0;
+  let weights = 0;
+  if (user.details.houseOk != undefined) {
+    if (user.details.houseOk == "non") {
+    } else {
+      res += 10;
+    }
+    weights += 1;
+  }
+  if (user.details.timeToFac != undefined) {
+    if (user.details.timeToFac == "0") {
+      res += 10;
+    } else if (user.details.timeToFac == "1") {
+      res += 6;
+    }
+    weights += 1;
+  }
+  if (weights != 0) {
+    return res / weights;
+  } else {
+    return -1;
+  }
 }
 
 function noOrientation(user) {
-  return 10 * Math.random();
+  // return 10 * Math.random();
+  let res = 0;
+  let weights = 0;
+  if (user.details.changeOrientation != undefined) {
+    if (user.details.changeOrientation == "non") {
+      res += 7;
+    }
+  } else {
+    res += 10;
+  }
+  weights += 1;
+  if (weights != 0) {
+    return res / weights;
+  } else {
+    return -1;
+  }
 }
 
 function integration(user) {
-  return 10 * Math.random();
+  // return 10 * Math.random();
+  let res = 0;
+  let weights = 0;
+  if (user.details.integration != undefined) {
+    res += 2 * parseInt(user.details.integration);
+    weights += 1;
+  }
+  if (weights != 0) {
+    return res / weights;
+  } else {
+    return -1;
+  }
 }
 
 // FUNCTION THAT UPDATE SCORES OF THE USER, EXCEPT FIDELITY, THAT SHOULD BE CALCULATED AT THE END OF A CHAT
