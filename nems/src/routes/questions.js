@@ -5,8 +5,7 @@ var Question = require("../models/Question");
 var User = require("../models/User.js");
 var construct = require("../models/Question.construct");
 
-/* 
-GET ALL QUESTIONS
+//GET ALL QUESTIONS
 
 router.get("/", function(req, res, next) {
   Question.find(function(err, questions) {
@@ -14,8 +13,6 @@ router.get("/", function(req, res, next) {
     res.json(questions);
   });
 });
-
-*/
 
 /* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
 
