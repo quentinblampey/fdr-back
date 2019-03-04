@@ -36,7 +36,21 @@ router.post("/:id", function(req, res, next) {
     user.numberQuestions = user.numberQuestions + 1;
     answer = req.body.answer;
     if (req.body.field) {
-      user.details[req.body.field] = answer.detail;
+      if (req.body.field == "hautNiveau") {
+        if (answer.detail == "1") {
+          user.caracteristics.artist = true;
+        } else if (answer.detail == "2") {
+          user.caracteristics.athlete = true;
+        }
+      } else if (req.body.field == "employe") {
+        user.caracteristics.employe = true;
+      } else if (req.body.field == "disabled") {
+        if (answer.detail == "oui") {
+          user.caracteristics.disabled = true;
+        }
+      } else {
+        user.details[req.body.field] = answer.detail;
+      }
     }
     if (answer.idQ != 0) {
       if (answer.breakPoint) {

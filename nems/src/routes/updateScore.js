@@ -61,7 +61,17 @@ function motivation(user) {
   let res = 0;
   let weights = 0;
   if (user.details.motivation != undefined) {
-    res += 2 * parseInt(user.details.motivation);
+    res += 3 * 2 * parseInt(user.details.motivation);
+    weights += 3;
+  }
+  if (user.details.whyWorks != undefined) {
+    if (user.details.whyWorks != "0") {
+      res += 10;
+      weights += 1;
+    }
+  }
+  if (user.details.presenceTD != undefined) {
+    res += (10 / 3) * parseInt(user.details.presenceTD);
     weights += 1;
   }
   if (weights != 0) {
@@ -90,6 +100,26 @@ function lifestyle(user) {
     }
     weights += 1;
   }
+  if (
+    user.details.sportBeforeComing == "non" &&
+    !(user.details.sportBeforeComing == "non")
+  ) {
+    res += 5;
+    weights += 0.5;
+  } else if (
+    user.details.sportBeforeComing != "non" &&
+    user.details.sportBeforeComing == "non"
+  ) {
+    weights += 0.5;
+  }
+  if (user.details.timeWithFriend != undefined) {
+    res += (parseInt(user.details.timeWithFriend) * 5) / 2;
+    weights += 0.5;
+  }
+  if (user.details.timeWithExtra != undefined) {
+    res += (parseInt(user.details.timeWithExtra) * 5) / 2;
+    weights += 0.5;
+  }
   if (weights != 0) {
     return res / weights;
   } else {
@@ -103,12 +133,21 @@ function noOrientation(user) {
   let weights = 0;
   if (user.details.changeOrientation != undefined) {
     if (user.details.changeOrientation == "non") {
-      res += 7;
+      res += 14;
     }
-  } else {
-    res += 10;
+    weights += 2;
   }
-  weights += 1;
+  if (user.details.whyWorks == "0") {
+    weights += 0.5;
+  } else if (user.details.whyWorks == "1" || user.details.whyWorks == "3") {
+    res += 20;
+    weights += 2;
+  }
+  if (user.details.helpMotivation == "0") {
+    weights += 0.5;
+  }
+  res += 1;
+  weights += 0.1;
   if (weights != 0) {
     return res / weights;
   } else {
@@ -123,6 +162,32 @@ function integration(user) {
   if (user.details.integration != undefined) {
     res += 2 * parseInt(user.details.integration);
     weights += 1;
+  }
+  if (user.details.house == 1) {
+    res += 5;
+    weights += 0.5;
+  }
+  if (user.details.house == 0) {
+    weights += 0.5;
+  }
+  if (user.details.timeWithFriend != undefined) {
+    if (parseInt(user.details.timeWithFriend) > 0) {
+      res += 10;
+    }
+    weights += 1;
+  }
+  if (user.details.friendsOk == "non") {
+    weights += 4;
+  }
+  if (user.details.newFriend != undefined) {
+    if (user.details.newFriend == "oui") {
+      res += 20;
+    }
+    weights += 2;
+  }
+  if (user.details.knownPerson != undefined) {
+    res += (20 / 3) * 2 * parseInt(user.details.knownPerson);
+    weights += 2;
   }
   if (weights != 0) {
     return res / weights;
