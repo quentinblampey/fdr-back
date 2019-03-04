@@ -14,7 +14,7 @@ router.post("/initget", function(req, res, next) {
     }
     if (post === null) {
       console.log("creating...");
-      firstTrees = [58, 27, 13, 4, 1];
+      firstTrees = [4, 1];
       random1 = Math.random() <= 0.2;
       random2 = Math.random() <= 0.05;
       random3 = Math.random() <= 0.6;

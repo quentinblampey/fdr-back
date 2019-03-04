@@ -1,14 +1,17 @@
 import csv
 import json
 
-## Import csv
+# Import csv
+
+
 def importFile(path):
-    questions=[]
+    questions = []
     with open(path, 'rt', encoding='utf8') as csvfile:
         imp = csv.reader(csvfile, delimiter=';')
-        i=0
+        i = 0
         for row in imp:
-            if i<2:i+=1
+            if i < 2:
+                i += 1
             else:
                 questions.append(row)
     print(questions)
@@ -22,39 +25,46 @@ def checkBool(value):
         return False
     return value
 
+
 def process(questions):
 
     def toJSON(question):
-        dic={}
+        dic = {}
         labels = ['idQ', 'body', 'persoBody', 'field', 'textArea']
         answers = [{}]
         answersLabels = ['idQ', 'body', 'breakPoint', 'reaction', 'detail']
-        dic['personalized'] = (question[1]=='')
+        print(question)
+        dic['personalized'] = (question[1] == '')
         for i in range(len(labels)):
-            if i==2:
-                dic[labels[i]]=question[i].split('/')
+            if i == 2:
+                dic[labels[i]] = question[i].split('/')
             else:
-                dic[labels[i]]=checkBool(question[i])
+                dic[labels[i]] = checkBool(question[i])
         for i in range(len(question)-len(labels)):
-            if question[len(labels)+i]!='':
-                if (not i%5)and i>0:
+            if question[len(labels)+i] != '':
+                if (not i % 5)and i > 0:
                     answers.append({})
                 print(answers)
-                answers[-1][answersLabels[i%5]] = checkBool(question[len(labels)+i])
+                answers[-1][answersLabels[i % 5]
+                            ] = checkBool(question[len(labels)+i])
         dic['answers'] = answers
         return dic
-    json_string = json.dumps([toJSON(q) for q in questions if q[0]!=''], ensure_ascii=False)
+    json_string = json.dumps(
+        [toJSON(q) for q in questions if q[0] != ''], ensure_ascii=False)
     print(json_string)
     return json_string
 
+
 def writeFile(json_string):
-    f = open("./uploads/q2.0.json","w", encoding='utf-8')
+    f = open("./q2.0.json", "w", encoding='utf-8')
     f.write(json_string)
     f.close()
+
 
 def main(path):
     questions = importFile(path)
     json_string = process(questions)
     writeFile(json_string)
 
-main('./uploads/Questions2.0.csv')
+
+main('./Questions2.2.csv')
