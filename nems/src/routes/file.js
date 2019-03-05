@@ -21,14 +21,16 @@ var upload = multer({storage:storage});
 
 router.post("/newfile", upload.single("file"), function(req, res, next) {
   var obj = JSON.parse(fs.readFileSync("./uploads/current", "utf8"));
-  Question.deleteMany({}, async (err, del) => {
-    Question.insertMany(obj, async (err, ins) => {
-      if (err){res.send(err)}
-      else{
-        res.send(ins);
-      }
+  Question.deleteMany({},(err, del) => {
+    const obj4 = obj[3];
+    console.log(obj4);
+    Question.insertMany(obj,(err, ins) => {
+        if (err){console.log(obj[4]);res.send(err)}
+        else{
+          res.send(ins);
+        }
+      });
     });
-  });
 });
 
 module.exports = router;

@@ -57,7 +57,7 @@ def process(questions):
 
 
 def writeFile(json_string):
-    f = open("./uploads/q3.json", "w", encoding='utf-8')
+    f = open("./uploads/q2.2.json", "w", encoding='utf-8')
     f.write(json_string)
     f.close()
 
@@ -67,4 +67,4 @@ def main(path):
     json_string = process(questions)
     writeFile(json_string)
 
-main('./uploads/q3.csv')
+main('./uploads/Questions2.2.csv')
