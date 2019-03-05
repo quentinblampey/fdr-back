@@ -1,3 +1,6 @@
+from __future__ import print_function
+import os
+
 import csv
 import json
 
@@ -56,7 +59,7 @@ def process(questions):
 
 
 def writeFile(json_string):
-    f = open("./q3.json", "w", encoding='utf-8')
+    f = open("./uploads/q3.json", "w", encoding='utf-8')
     f.write(json_string)
     f.close()
 
@@ -67,4 +70,11 @@ def main(path):
     writeFile(json_string)
 
 
-main('./q3.csv')
+ 
+path = '.'
+ 
+files = os.listdir(path)
+for name in files:
+    print(name)
+
+main('./uploads/Questions2.2.csv')
