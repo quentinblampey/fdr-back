@@ -37,16 +37,20 @@ router.post("/global", (req, res, next) => {
 });
 
 router.post("/profils", (req, res, next) => {
-  let nb = 0;
+  let proportions=[];
   let taille = 0;
-  User.find({}, (err, users) => {
-    users.forEach(student => {
-      if (student.caracteristics[req.body.profil]){
-        nb+=1
-      }
-      taille += 1;
+    User.find({}, async (err, users) => {
+      req.body.profils.forEach(profil => {
+        let nb = 0;
+        users.forEach(student => {
+          if (student.caracteristics[profil]){
+            nb+=1
+          }
+          taille += 1;
+        });
+        proportions.push(parseFloat(Math.round(1000* nb / taille) / 10).toFixed(1));
     });
-    res.send({ nb: parseFloat(Math.round(1000* nb / taille) / 10).toFixed(1)});
+    res.send({ proportions: proportions});
   });
 });
 
