@@ -19,6 +19,20 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "http://fdr.cs-campus.fr");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 // App views config
 app.set("view engine", "ejs");
 app.set("views", "src/views");
