@@ -23,10 +23,10 @@ router.post("/newfile", upload.single("file"), function(req, res, next) {
   var obj = JSON.parse(fs.readFileSync("./uploads/current", "utf8"));
   Question.deleteMany({}, async (err, del) => {
     Question.insertMany(obj, async (err, ins) => {
-      Question.find((err, found) => {
-        imported = true;
-        res.send(obj);
-      });
+      if (err){res.send(err)}
+      else{
+        res.send(ins);
+      }
     });
   });
 });

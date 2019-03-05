@@ -36,7 +36,7 @@
 34;Et tes activités extrascolaire, même question, combien de temps chaque soir ?🎓;;timeWithExtra;FAUX;35;Aucun ou presque pas;FAUX;;0;35;Une demi heure environ;FAUX;;1;35;Plus d'une heure;FAUX;;2;;;;;;;;;;
 35;Compte tenu de tous ça, le temps de trajet, le temps passé avec les amis et pour tes activités extrascolaire, tu as environ combien de temps pour bosser les cours le soir ?;;timeWork;FAUX;0;Aucun ou presque pas;FAUX;;0;0;Une demi heure environ;FAUX;;1;0;Plus d'une heure;FAUX;;2;0;Plus de deux heure;FAUX;;3;;;;;
 36;Bon je change de sujet, est-ce que tu as un handicap quelconque ?;;disabled;FAUX;4;Non;FAUX;D'accord c'est noté;non;37;Oui;FAUX;;oui;;;;;;;;;;;;;;;
-37;Tu peux me détailler un peu ton handicap du coup ?😊;;disease;VRAI;#REF!;;FAUX;Merci, j'ai pris ta réponse en compte !;;;;;;;;;;;;;;;;;;;;;
+37;Tu peux me détailler un peu ton handicap du coup ?😊;;disease;VRAI;69;;FAUX;Merci, j'ai pris ta réponse en compte !;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
