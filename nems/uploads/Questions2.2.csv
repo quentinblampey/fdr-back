@@ -65,6 +65,10 @@
 63;Tu prends des notes en cours ?;;notesCours;FAUX;0;Oui !;FAUX;;0;0;Pas toujours mais j'écoute !;FAUX;;1;63;Non je n'arrive pas à suivre;FAUX;;2;;;;;;;;;;
 64;Est-ce que tu travailles à plusieurs ?😊;;travailGroupe;FAUX;0;Non;FAUX;;0;0;Parfois;FAUX;;1;0;Souvent;FAUX;;2;;;;;;;;;;
 65;Est-ce que reprends tes TDs ?;;repriseTD;FAUX;0;Non;FAUX;;0;0;Oui ça m'aide à suivre !;FAUX;;1;;;;;;;;;;;;;;;
+66;Ça n'a rien à voir, mais est-ce que tu es employé en parallèle ?;;employe;FAUX;0;Non;FAUX;;0;67;Oui;FAUX;;1;;;;;;;;;;;;;;;
+67;Tu as un contrat de combien d'heures par semaine ?;;employeTime;FAUX;0;Moins de 5h;FAUX;;0;0;Entre 5 et 15h;FAUX;;1;0;Plus de 15h;FAUX;;2;;;;;;;;;;
+68;Est-ce que tu es artiste ou sportif de haut niveau ?;;hautNiveau;FAUX;4;Non;FAUX;;0;4;Oui je suis un artiste;FAUX;;1;Tu peux me dire quel sport ?;Oui je suis sportif;FAUX;;2;;;;;;;;;;
+69;Sinon, est-ce que tu es artiste ?;;artHautNiveau;FAUX;0;Non;FAUX;;non;0;Oui je suis un artiste;FAUX;;oui;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
