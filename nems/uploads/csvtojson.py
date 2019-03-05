@@ -1,3 +1,6 @@
+from __future__ import print_function
+import os
+
 import csv
 import json
 
@@ -14,7 +17,6 @@ def importFile(path):
                 i += 1
             else:
                 questions.append(row)
-    print(questions)
     return questions
 
 
@@ -33,7 +35,6 @@ def process(questions):
         labels = ['idQ', 'body', 'persoBody', 'field', 'textArea']
         answers = [{}]
         answersLabels = ['idQ', 'body', 'breakPoint', 'reaction', 'detail']
-        print(question)
         dic['personalized'] = (question[1] == '')
         for i in range(len(labels)):
             if i == 2:
@@ -44,19 +45,18 @@ def process(questions):
             if question[len(labels)+i] != '':
                 if (not i % 5)and i > 0:
                     answers.append({})
-                print(answers)
                 answers[-1][answersLabels[i % 5]
                             ] = checkBool(question[len(labels)+i])
         dic['answers'] = answers
         return dic
     json_string = json.dumps(
         [toJSON(q) for q in questions if q[0] != ''], ensure_ascii=False)
-    print(json_string)
+    #print(json_string)
     return json_string
 
 
 def writeFile(json_string):
-    f = open("./q2.0.json", "w", encoding='utf-8')
+    f = open("./uploads/q3.json", "w", encoding='utf-8')
     f.write(json_string)
     f.close()
 
@@ -66,5 +66,4 @@ def main(path):
     json_string = process(questions)
     writeFile(json_string)
 
-
-main('./Questions2.2.csv')
+main('./uploads/q3.csv')

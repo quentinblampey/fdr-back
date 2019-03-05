@@ -63,12 +63,12 @@ var construct = function(question, details) {
       }
       break;
     case 62:
-      if (details.objectifPresenceTD == "2") {
+      if (details.objectifPresenceTD == "1") {
         question.body =
-          question.persoBody[0] + " souvent " + question.persoBody[1];
+          question.persoBody[0] + " un peu " + question.persoBody[1];
       } else {
         question.body =
-          question.persoBody[0] + " toujours " + question.persoBody[1];
+          question.persoBody[0] + " beaucoup " + question.persoBody[1];
       }
       break;
   }
