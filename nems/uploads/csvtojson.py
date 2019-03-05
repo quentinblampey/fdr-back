@@ -49,7 +49,6 @@ def process(questions):
                             ] = checkBool(question[len(labels)+i])
         dic['answers'] = answers
         return dic
-    print(questions[65])
     json_string = json.dumps(
         [toJSON(q) for q in questions if q[0] != ''], ensure_ascii=False)
     #print(json_string)
@@ -67,4 +66,4 @@ def main(path):
     json_string = process(questions)
     writeFile(json_string)
 
-main('./uploads/Questions2.2.csv')
+main('./uploads/q3.csv')
