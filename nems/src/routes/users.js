@@ -150,14 +150,13 @@ router.put("/:id", function(req, res, next) {
   });
 });
 
-DELETE USER, NOT NECESSARY
+DELETE USER, NOT NECESSARY */
 
-router.delete('/:id', function(req, res, next) {
-  User.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+router.delete("/:id", function(req, res, next) {
+  User.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
-*/
 
 module.exports = router;
