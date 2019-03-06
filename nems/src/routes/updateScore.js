@@ -186,7 +186,7 @@ function integration(user) {
     weights += 2;
   }
   if (user.details.knownPerson != undefined) {
-    res += (20 / 3) * 2 * parseInt(user.details.knownPerson);
+    res += (10 / 3) * 2 * parseInt(user.details.knownPerson);
     weights += 2;
   }
   if (weights != 0) {
