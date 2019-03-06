@@ -7,8 +7,8 @@ const saveScore = require("./updateScore").saveScore;
 
 /* USER CREATION : IF USERNAME ALREADY EXISTS, RETURNS THE CORRESPONDING ACCOUNT, ELSE IT CREATES THE USER AND RETURNS THE ACCOUNT */
 router.post("/initget", function(req, res, next) {
-  console.log(req.body.pseudo);
-  User.findOne({ pseudo: req.body.pseudo }, function(err, post) {
+  const pseudo = req.body.pseudo.toLowerCase();
+  User.findOne({ pseudo: pseudo }, function(err, post) {
     if (err) {
       return next(err);
     }
@@ -22,7 +22,7 @@ router.post("/initget", function(req, res, next) {
       random5 = Math.random() <= 0.1;
       User.create(
         {
-          pseudo: req.body.pseudo,
+          pseudo: pseudo,
           registration: Date.now().toString(),
           numberQuestions: 0,
           numberChats: [],
