@@ -4,6 +4,7 @@ services:
     build: 
       context: ./
       dockerfile: ./DockerFile
+        restart: always
     container_name: nems-web
     ports:
     - "8080:8080"
