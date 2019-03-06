@@ -1,23 +1,35 @@
-version: '2'
+version: "2"
 services:
   app:
-    build: 
+    build:
       context: ./
       dockerfile: ./DockerFile
+    restart: always
     container_name: nems-web
     ports:
-    - "8080:8080"
-    - "9229:9229"
+      - "8080:8080"
+      - "9229:9229"
     links:
-     - "db:mongo"
+      - "db:mongo"
     depends_on:
-     - db
+      - db
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
     environment:
-     - NODE_ENV=development
-    command: ["./wait-for-it.sh", "db:27017", "--strict", "-t", "0", "--", "npm", "run", "start-dev"]
+      - NODE_ENV=development
+    command:
+      [
+        "./wait-for-it.sh",
+        "db:27017",
+        "--strict",
+        "-t",
+        "0",
+        "--",
+        "npm",
+        "run",
+        "start-dev",
+      ]
   db:
     image: mongo:3.4.10
     container_name: nems-db
