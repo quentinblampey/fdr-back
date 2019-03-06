@@ -175,3 +175,5 @@ typings/
 # Project specific
 
 data
+
+src/app.js

@@ -35,7 +35,7 @@ router.post("/initget", function(req, res, next) {
             biBachelor: random5
           },
           nextBreak: [],
-          details: {}
+          details: { name: "undefined" }
         },
         function(err, post) {
           if (err) return next(err);
