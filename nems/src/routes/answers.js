@@ -37,7 +37,7 @@ router.post("/:id", function(req, res, next) {
     if (numberQuestions >= nQ) {
       user.completion = 100;
     } else {
-      user.completion = user.numberQuestions / nQ;
+      user.completion = (user.numberQuestions / nQ) * 100;
     }
     answer = req.body.answer;
     if (req.body.field) {
