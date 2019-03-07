@@ -103,6 +103,30 @@ router.get("/sorted/caracteristics/:filter", function(req, res, next) {
   });
 });
 
+/* FILTER AND SORT USERS */
+
+router.get("/filter", function(req, res, next) {
+  var queryFilter = {};
+  var querySort = {};
+  req.body.filter.forEach(filter => {
+    queryFilter["caracteristics." + filter.toString()] = true;
+  });
+  req.body.sort.forEach(param => {
+    querySort[param.toString()] = 1;
+    queryFilter[param.toString()] = { $gt: 0 };
+  });
+  req.body.sortScore.forEach(param => {
+    querySort["score." + param.toString()] = 1;
+    queryFilter["score." + param.toString()] = { $gt: 0 };
+  });
+  User.find(queryFilter, null, { sort: querySort }, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    res.json(users);
+  });
+});
+
 /* UPDATE USER AFTER THE END OF CHAT */
 
 router.put("/endchat/:id", function(req, res, next) {

@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 var User = require("../models/User.js");
 var Answer = require("../models/Answer.js");
 const updateScore = require("./updateScore").updateScore;
-
+var nQ = 25;
 /*
 GET ALL ANSWERS
 
@@ -34,6 +34,11 @@ router.post("/:id", function(req, res, next) {
     }
     user.currentBreak.pop();
     user.numberQuestions = user.numberQuestions + 1;
+    if (numberQuestions >= nQ) {
+      user.completion = 100;
+    } else {
+      user.completion = user.numberQuestions / nQ;
+    }
     answer = req.body.answer;
     if (req.body.field) {
       if (req.body.field == "hautNiveau") {
