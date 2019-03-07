@@ -51,12 +51,12 @@ def process(questions):
         return dic
     json_string = json.dumps(
         [toJSON(q) for q in questions if q[0] != ''], ensure_ascii=False)
-    #print(json_string)
+    # print(json_string)
     return json_string
 
 
 def writeFile(json_string):
-    f = open("./uploads/q3.json", "w", encoding='utf-8')
+    f = open("./q4.0.json", "w", encoding='utf-8')
     f.write(json_string)
     f.close()
 
@@ -66,4 +66,5 @@ def main(path):
     json_string = process(questions)
     writeFile(json_string)
 
-main('./uploads/q3.csv')
+
+main('./Questions4.0.csv')
