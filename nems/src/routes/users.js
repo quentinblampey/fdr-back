@@ -119,7 +119,8 @@ router.get("/sorted/caracteristics/:filter", function(req, res, next) {
 
 /* FILTER AND SORT USERS */
 
-router.get("/filter", function(req, res, next) {
+router.post("/filter", function(req, res, next) {
+  console.log(req.body);
   var queryFilter = {};
   var querySort = {};
   req.body.filter.forEach(filter => {
