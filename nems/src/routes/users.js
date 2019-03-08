@@ -74,7 +74,7 @@ router.post("/aide/:id/:help", function(req, res, next) {
     }
     if (Number(req.params.help) === 2) {
       try {
-        user.aideMessage = String(req.body);
+        user.aideMessage = req.body.message;
       } catch (error) {
         console.log(error);
         user.aideMessage = "Pas de message de l'étudiant.";
