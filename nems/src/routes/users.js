@@ -18,6 +18,7 @@ router.post("/initget", function(req, res, next) {
       User.create(
         {
           pseudo: pseudo,
+          helped: false,
           registration: Date.now().toString(),
           numberQuestions: 0,
           numberChats: [],
@@ -117,12 +118,26 @@ router.get("/sorted/caracteristics/:filter", function(req, res, next) {
   });
 });
 
+/* FILTER BY HELPED */
+
+router.get("/helped", function(req, res, next) {
+  var queryParam = {};
+  queryParam["helped"] = true;
+  User.find(queryParam, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    res.json(users);
+  });
+});
+
 /* FILTER AND SORT USERS */
 
 router.post("/filter", function(req, res, next) {
   console.log(req.body);
   var queryFilter = {};
   var querySort = {};
+  queryFilter["helped"] = false;
   req.body.filter.forEach(filter => {
     queryFilter["caracteristics." + filter.toString()] = true;
   });
