@@ -92,7 +92,7 @@ router.post("/help/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    users.help = true;
+    users.helped = true;
     users.save();
 
     res.json(users);
@@ -165,7 +165,6 @@ router.get("/helped", function(req, res, next) {
 /* FILTER AND SORT USERS */
 
 router.post("/filter", function(req, res, next) {
-  console.log(req.body);
   var queryFilter = {};
   var querySort = {};
   queryFilter["helped"] = false;
