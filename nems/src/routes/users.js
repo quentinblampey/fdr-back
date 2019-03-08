@@ -21,6 +21,7 @@ router.post("/initget", function(req, res, next) {
           registration: Date.now().toString(),
           numberQuestions: 0,
           numberChats: [],
+          aide: false,
           currentBreak: firstTrees,
           caracteristics: {
             athlete: false,
@@ -49,6 +50,19 @@ router.get("/getid/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
+    res.json(users);
+  });
+});
+
+/*  GET USER BY ID*/
+router.post("/aide/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    users.aide = true;
+    users.save();
+
     res.json(users);
   });
 });
