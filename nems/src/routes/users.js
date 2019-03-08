@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable prefer-arrow-callback */
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
@@ -23,6 +25,7 @@ router.post("/initget", function(req, res, next) {
           numberQuestions: 0,
           numberChats: [],
           aide: false,
+          aideMessage: "",
           currentBreak: firstTrees,
           caracteristics: {
             athlete: false,
@@ -55,23 +58,31 @@ router.get("/getid/:id", function(req, res, next) {
   });
 });
 
-/* GET USER BY ID */
+/* AIDE BY ID */
 router.post("/aide/:id/:help", function(req, res, next) {
-  User.findById(req.params.id, function(err, users) {
+  User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
 
     if (user.aide === 0) {
-      users.aide = 2;
+      user.aide = 2;
     } else if (user.aide === 1) {
-      users.aide = 3;
+      user.aide = 3;
     } else {
       user.aide = Number(req.params.help);
     }
-    users.save();
+    if (Number(req.params.help) === 2) {
+      try {
+        user.aideMessage = String(req.body);
+      } catch (error) {
+        console.log(error);
+        user.aideMessage = "Pas de message de l'étudiant.";
+      }
+    }
+    user.save();
 
-    res.json(users);
+    res.json(user);
   });
 });
 

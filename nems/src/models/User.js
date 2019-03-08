@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   nextBreak: [Number],
   completion: Number,
   aide: Number,
+  aideMessage: String,
   helped: Boolean,
   details: {
     name: String,
