@@ -67,6 +67,20 @@ router.post("/aide/:id/:help", function(req, res, next) {
     res.json(users);
   });
 });
+
+/* HELP USER */
+router.post("/help/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    users.help = true;
+    users.save();
+
+    res.json(users);
+  });
+});
+
 /* GET ALL USERS */
 
 router.get("/", function(req, res, next) {
