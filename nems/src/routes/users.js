@@ -55,19 +55,18 @@ router.get("/getid/:id", function(req, res, next) {
   });
 });
 
-/*  GET USER BY ID*/
-router.post("/aide/:id", function(req, res, next) {
+/* GET USER BY ID */
+router.post("/aide/:id/:help", function(req, res, next) {
   User.findById(req.params.id, function(err, users) {
     if (err) {
       return next(err);
     }
-    users.aide = true;
+    users.aide = Number(req.params.help);
     users.save();
 
     res.json(users);
   });
 });
-
 /* GET ALL USERS */
 
 router.get("/", function(req, res, next) {
