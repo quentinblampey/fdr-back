@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   nextBreak: [Number],
   completion: Number,
   aide: Boolean,
+  helped: Boolean,
   details: {
     name: String,
     sportBeforeComing: String,
