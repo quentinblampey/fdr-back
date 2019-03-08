@@ -126,13 +126,13 @@ router.post("/filter", function(req, res, next) {
   req.body.filter.forEach(filter => {
     queryFilter["caracteristics." + filter.toString()] = true;
   });
-  req.body.sort.forEach(param => {
-    querySort[param.toString()] = 1;
-    queryFilter[param.toString()] = { $gt: 0 };
-  });
   req.body.sortScore.forEach(param => {
     querySort["score." + param.toString()] = 1;
     queryFilter["score." + param.toString()] = { $gt: 0 };
+  });
+  req.body.sort.forEach(param => {
+    querySort[param.toString()] = 1;
+    queryFilter[param.toString()] = { $gt: 0 };
   });
   User.find(queryFilter, null, { sort: querySort }, function(err, users) {
     if (err) {
