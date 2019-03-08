@@ -61,7 +61,14 @@ router.post("/aide/:id/:help", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    users.aide = Number(req.params.help);
+
+    if (user.aide === 0) {
+      users.aide = 2;
+    } else if (user.aide === 1) {
+      users.aide = 3;
+    } else {
+      user.aide = Number(req.params.help);
+    }
     users.save();
 
     res.json(users);

@@ -1,4 +1,13 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable comma-dangle */
+/* eslint-disable id-length */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable quotes */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable indent */
+/* eslint-disable space-before-fuction-paren */
+
 function fidelity(user) {
   if (
     user.numberChats === undefined ||
@@ -60,21 +69,21 @@ function motivation(user) {
   // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.motivation != undefined) {
+  if (user.details.motivation !== undefined) {
     res += 3 * 2 * parseInt(user.details.motivation);
     weights += 3;
   }
-  if (user.details.whyWorks != undefined) {
-    if (user.details.whyWorks != "0") {
+  if (user.details.whyWorks !== undefined) {
+    if (user.details.whyWorks !== "0") {
       res += 10;
       weights += 1;
     }
   }
-  if (user.details.presenceTD != undefined) {
+  if (user.details.presenceTD !== undefined) {
     res += (10 / 3) * parseInt(user.details.presenceTD);
     weights += 1;
   }
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -85,42 +94,42 @@ function lifestyle(user) {
   // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.houseOk != undefined) {
-    if (user.details.houseOk == "non") {
+  if (user.details.houseOk !== undefined) {
+    if (user.details.houseOk === "non") {
     } else {
       res += 10;
     }
     weights += 1;
   }
-  if (user.details.timeToFac != undefined) {
-    if (user.details.timeToFac == "0") {
+  if (user.details.timeToFac !== undefined) {
+    if (user.details.timeToFac === "0") {
       res += 10;
-    } else if (user.details.timeToFac == "1") {
+    } else if (user.details.timeToFac === "1") {
       res += 6;
     }
     weights += 1;
   }
   if (
-    user.details.sportBeforeComing == "non" &&
-    !(user.details.sportBeforeComing == "non")
+    user.details.sportBeforeComing === "non" &&
+    !(user.details.sportBeforeComing === "non")
   ) {
     res += 5;
     weights += 0.5;
   } else if (
-    user.details.sportBeforeComing != "non" &&
-    user.details.sportBeforeComing == "non"
+    user.details.sportBeforeComing !== "non" &&
+    user.details.sportBeforeComing === "non"
   ) {
     weights += 0.5;
   }
-  if (user.details.timeWithFriend != undefined) {
+  if (user.details.timeWithFriend !== undefined) {
     res += (parseInt(user.details.timeWithFriend) * 5) / 2;
     weights += 0.5;
   }
-  if (user.details.timeWithExtra != undefined) {
+  if (user.details.timeWithExtra !== undefined) {
     res += (parseInt(user.details.timeWithExtra) * 5) / 2;
     weights += 0.5;
   }
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -131,24 +140,24 @@ function noOrientation(user) {
   // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.changeOrientation != undefined) {
-    if (user.details.changeOrientation == "non") {
+  if (user.details.changeOrientation !== undefined) {
+    if (user.details.changeOrientation === "non") {
       res += 14;
     }
     weights += 2;
   }
-  if (user.details.whyWorks == "0") {
+  if (user.details.whyWorks === "0") {
     weights += 0.5;
-  } else if (user.details.whyWorks == "1" || user.details.whyWorks == "3") {
+  } else if (user.details.whyWorks === "1" || user.details.whyWorks === "3") {
     res += 20;
     weights += 2;
   }
-  if (user.details.helpMotivation == "0") {
+  if (user.details.helpMotivation === "0") {
     weights += 0.5;
   }
   res += 1;
   weights += 0.1;
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -159,37 +168,37 @@ function integration(user) {
   // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.integration != undefined) {
+  if (user.details.integration !== undefined) {
     res += 2 * parseInt(user.details.integration);
     weights += 1;
   }
-  if (user.details.house == 1) {
+  if (user.details.house === 1) {
     res += 5;
     weights += 0.5;
   }
-  if (user.details.house == 0) {
+  if (user.details.house === 0) {
     weights += 0.5;
   }
-  if (user.details.timeWithFriend != undefined) {
+  if (user.details.timeWithFriend !== undefined) {
     if (parseInt(user.details.timeWithFriend) > 0) {
       res += 10;
     }
     weights += 1;
   }
-  if (user.details.friendsOk == "non") {
+  if (user.details.friendsOk === "non") {
     weights += 4;
   }
-  if (user.details.newFriend != undefined) {
-    if (user.details.newFriend == "oui") {
+  if (user.details.newFriend !== undefined) {
+    if (user.details.newFriend === "oui") {
       res += 20;
     }
     weights += 2;
   }
-  if (user.details.knownPerson != undefined) {
+  if (user.details.knownPerson !== undefined) {
     res += (10 / 3) * 2 * parseInt(user.details.knownPerson);
     weights += 2;
   }
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -203,6 +212,29 @@ function updateScore(user) {
   user.score.lifestyle = lifestyle(user);
   user.score.noOrientation = noOrientation(user);
   user.score.integration = integration(user);
+
+  let moy = 1;
+  if (user.score.motivation > 0) {
+    moy *= user.score.motivation;
+  }
+  if (user.score.lifestyle > 0) {
+    moy *= user.score.lifestyle;
+  }
+  if (user.score.noOrientation > 0) {
+    moy *= user.score.noOrientation;
+  }
+  if (user.score.integration > 0) {
+    moy *= user.score.integration;
+  }
+  if (user.score.fidelity > 0) {
+    moy *= user.score.fidelity;
+  }
+
+  if (moy <= 300000) {
+    if (user.aide === 0 || user.aide === 2) {
+      user.aide += 1;
+    }
+  }
 }
 
 // SAVE SCORE OF THE USER IN HIS HISTORIC
