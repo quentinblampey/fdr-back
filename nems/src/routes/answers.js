@@ -34,7 +34,7 @@ router.post("/:id", function(req, res, next) {
     }
     user.currentBreak.pop();
     user.numberQuestions = user.numberQuestions + 1;
-    if (numberQuestions >= nQ) {
+    if (user.numberQuestions >= nQ) {
       user.completion = 100;
     } else {
       user.completion = (user.numberQuestions / nQ) * 100;
