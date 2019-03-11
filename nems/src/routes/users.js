@@ -167,6 +167,9 @@ router.post("/filter", function(req, res, next) {
   req.body.filter.forEach(filter => {
     queryFilter["caracteristics." + filter.toString()] = true;
   });
+  if (req.body.filterHelp) {
+    queryFilter["aide"] = true;
+  }
   req.body.sortScore.forEach(param => {
     querySort["score." + param.toString()] = 1;
     queryFilter["score." + param.toString()] = { $gt: 0 };
