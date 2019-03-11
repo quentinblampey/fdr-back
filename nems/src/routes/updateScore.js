@@ -214,23 +214,32 @@ function updateScore(user) {
   user.score.integration = integration(user);
 
   let moy = 1;
+  let n = 0;
   if (user.score.motivation > 0) {
     moy *= user.score.motivation;
+    n++;
   }
   if (user.score.lifestyle > 0) {
     moy *= user.score.lifestyle;
+    n++;
   }
   if (user.score.noOrientation > 0) {
     moy *= user.score.noOrientation;
+    n++;
   }
   if (user.score.integration > 0) {
     moy *= user.score.integration;
+    n++;
   }
   if (user.score.fidelity > 0) {
     moy *= user.score.fidelity;
+    n++;
   }
-
-  user.score.mean = moy;
+  if (n === 0) {
+    user.score.mean = -1;
+  } else {
+    user.score.mean = Math.pow(moy, 1.0 / n);
+  }
 }
 
 // SAVE SCORE OF THE USER IN HIS HISTORIC
