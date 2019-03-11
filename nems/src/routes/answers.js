@@ -31,47 +31,53 @@ router.post("/:id", function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
-    }
-    user.currentBreak.pop();
-    user.numberQuestions = user.numberQuestions + 1;
-    if (user.numberQuestions >= nQ) {
-      user.completion = 100;
-    } else {
-      user.completion = (user.numberQuestions / nQ) * 100;
-    }
-    answer = req.body.answer;
-    if (req.body.field) {
-      if (req.body.field == "hautNiveau") {
-        if (answer.detail == "1") {
-          user.caracteristics.artist = true;
-        } else if (answer.detail == "2") {
-          user.caracteristics.athlete = true;
+    } else{
+      var promise1 = new Promise(function(resolve, reject) {
+        console.log(user.currentBreak);
+      user.currentBreak.pop();
+      console.log(user.currentBreak);
+      user.numberQuestions = user.numberQuestions + 1;
+      user.completion = Math.min((user.numberQuestions / nQ) * 100, 100);
+      answer = req.body.answer;
+      if (req.body.field) {
+        if (req.body.field == "hautNiveau") {
+          if (answer.detail == "1") {
+            user.caracteristics.artist = true;
+          } else if (answer.detail == "2") {
+            user.caracteristics.athlete = true;
+          }
+        } else if (req.body.field == "employe") {
+          user.caracteristics.employe = true;
+        } else if (req.body.field == "disabled") {
+          if (answer.detail == "oui") {
+            user.caracteristics.disabled = true;
+          }
+        } else if (req.body.field == "artHautNiveau") {
+          if (answer.detail == "oui") {
+            user.caracteristics.artist = true;
+          }
+        } else {
+          user.details[req.body.field] = answer.detail;
         }
-      } else if (req.body.field == "employe") {
-        user.caracteristics.employe = true;
-      } else if (req.body.field == "disabled") {
-        if (answer.detail == "oui") {
-          user.caracteristics.disabled = true;
-        }
-      } else if (req.body.field == "artHautNiveau") {
-        if (answer.detail == "oui") {
-          user.caracteristics.artist = true;
-        }
-      } else {
-        user.details[req.body.field] = answer.detail;
       }
-    }
-    if (answer.idQ != 0) {
-      if (answer.breakPoint) {
-        user.nextBreak.push(answer.idQ);
-      } else {
-        user.currentBreak.push(answer.idQ);
+      if (answer.idQ != 0) {
+        if (answer.breakPoint) {
+          user.nextBreak.push(answer.idQ);
+        } else {
+          user.currentBreak.push(answer.idQ);
+        }
       }
+      console.log("Updating stats...");
+      updateScore(user);
+      user.save();
+      console.log(user.currentBreak);
+      resolve();
+      });
+      
+      promise1.then(function(value) {
+        res.json(user);
+      });
     }
-    console.log("Updating stats...");
-    updateScore(user);
-    user.save();
-    res.json(user);
   });
 });
 

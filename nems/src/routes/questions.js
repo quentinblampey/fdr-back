@@ -45,6 +45,7 @@ router.post('/:idQ', function(req, res, next) {
 /* FIND A NEW QUESTION AND CHECK IF THE CHAT IS FINISH */
 router.post("/:id", function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
+    console.log('quest', user.currentBreak)
     if (err) {
       return next(err);
     }
@@ -61,6 +62,7 @@ router.post("/:id", function(req, res, next) {
         if (question.personalized) {
           question = construct(question, user.details);
         }
+        console.log(question.idQ);
         res.json({ question: question, isFinish: false, user: user });
       });
     }
