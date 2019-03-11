@@ -16,7 +16,8 @@ router.post("/initget", function(req, res, next) {
     }
     if (post === null) {
       console.log("creating...");
-      firstTrees = [58, 66, 36, 27, 13, 1];
+      firstTrees = [79, 77, 72, 68, 63, 57, 48, 47, 34, 18, 1];
+      nextTrees = [50];
       User.create(
         {
           pseudo: pseudo,
@@ -33,7 +34,7 @@ router.post("/initget", function(req, res, next) {
             employe: false,
             artist: false
           },
-          nextBreak: [],
+          nextBreak: nextTrees,
           details: { name: "undefined" }
         },
         function(err, post) {
