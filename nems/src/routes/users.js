@@ -67,21 +67,15 @@ router.post("/aide/:id/:help", function(req, res, next) {
       return next(err);
     }
 
-    if (user.aide === 0) {
-      user.aide = -2;
-    } else if (user.aide === -1) {
-      user.aide = -3;
-    } else {
-      user.aide = -1 * Number(req.params.help);
+    user.aide = true;
+
+    try {
+      user.aideMessage = req.body.message;
+    } catch (error) {
+      console.log(error);
+      user.aideMessage = "Pas de message de l'étudiant.";
     }
-    if (Number(req.params.help) === 2) {
-      try {
-        user.aideMessage = req.body.message;
-      } catch (error) {
-        console.log(error);
-        user.aideMessage = "Pas de message de l'étudiant.";
-      }
-    }
+
     user.save();
 
     res.json(user);

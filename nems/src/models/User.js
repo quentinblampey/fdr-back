@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   currentBreak: [Number],
   nextBreak: [Number],
   completion: Number,
-  aide: Number,
+  aide: { type: Boolean, default: false },
   aideMessage: String,
   helped: Boolean,
   details: {
@@ -63,7 +63,8 @@ const UserSchema = new mongoose.Schema({
     fidelity: { type: Number, default: -1 },
     lifestyle: { type: Number, default: -1 },
     integration: { type: Number, default: -1 },
-    noOrientation: { type: Number, default: -1 }
+    noOrientation: { type: Number, default: -1 },
+    mean: { type: Number, default: -1 }
   },
   historicScores: {
     motivation: { type: [Number], default: [] },
