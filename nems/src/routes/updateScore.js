@@ -230,9 +230,9 @@ function updateScore(user) {
     moy *= user.score.fidelity;
   }
 
-  if (moy <= 300000) {
+  if (moy <= 1024) {
     if (user.aide === 0 || user.aide === 2) {
-      user.aide += 1;
+      user.aide -= 1;
     }
   }
 }

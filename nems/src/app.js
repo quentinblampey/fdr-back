@@ -1,3 +1,7 @@
+/* eslint-disable space-before-function-paren */
+/* eslint-disable indent */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable quotes */
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -10,7 +14,7 @@ const questions = require("./routes/questions");
 const file = require("./routes/file");
 const enseignants = require("./routes/enseignants");
 const stats = require("./routes/stats");
-const rdvs = require("./routes/rdv");
+const rdv = require("./routes/rdv");
 
 const app = express();
 
@@ -49,7 +53,7 @@ app.use("/api/questions", questions);
 app.use("/api/file", file);
 app.use("/api/enseignants", enseignants);
 app.use("/api/stats", stats);
-app.use("/api/rdv", rdvs);
+app.use("/api/rdv", rdv);
 
 // Basic error handling middleware
 app.use(errorHandler);

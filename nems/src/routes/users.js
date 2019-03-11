@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable indent */
 /* eslint-disable prefer-arrow-callback */
 const express = require("express");
@@ -66,11 +67,11 @@ router.post("/aide/:id/:help", function(req, res, next) {
     }
 
     if (user.aide === 0) {
-      user.aide = 2;
-    } else if (user.aide === 1) {
-      user.aide = 3;
+      user.aide = -2;
+    } else if (user.aide === -1) {
+      user.aide = -3;
     } else {
-      user.aide = Number(req.params.help);
+      user.aide = -1 * Number(req.params.help);
     }
     if (Number(req.params.help) === 2) {
       try {
