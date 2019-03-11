@@ -10,6 +10,7 @@ const questions = require("./routes/questions");
 const file = require("./routes/file");
 const enseignants = require("./routes/enseignants");
 const stats = require("./routes/stats");
+const rdvs = require("./routes/rdv");
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use("/api/questions", questions);
 app.use("/api/file", file);
 app.use("/api/enseignants", enseignants);
 app.use("/api/stats", stats);
+app.use("/api/rdv", rdvs);
 
 // Basic error handling middleware
 app.use(errorHandler);
