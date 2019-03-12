@@ -34,7 +34,9 @@ router.post("/:id", function(req, res, next) {
         } else if (req.body.field == "helpMessage"){
           user.aide = true;
           user.aideMessage = answer.body;
-        }else {
+        } else if(req.body.field == "plusMoins" || req.body.field == "won"){
+          user.details.numberToGuess = Math.floor(100*Math.random());
+        }  else{
           user.details[req.body.field] = answer.detail;
         }
       }
@@ -42,7 +44,18 @@ router.post("/:id", function(req, res, next) {
         if (answer.breakPoint) {
           user.nextBreak.push(answer.idQ);
         } else {
-          user.currentBreak.push(answer.idQ);
+          if (answer.idQ === -1){
+            console.log(answer.body, user.details.numberToGuess, answer.body === user.details.numberToGuess)
+            if (parseInt(answer.body) === parseInt(user.details.numberToGuess)){
+              user.currentBreak.push(154);
+            }else if (answer.body > user.details.numberToGuess){
+              user.currentBreak.push(153);
+            }else{
+              user.currentBreak.push(152);
+            }
+          }else{
+            user.currentBreak.push(answer.idQ);
+          }
         }
       }
       updateScore(user);

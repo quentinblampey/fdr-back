@@ -67,4 +67,4 @@ def main(path):
     writeFile(json_string)
 
 
-main('./uploads/q12-03.csv')
+main('./uploads/game.csv')
