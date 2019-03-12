@@ -52,11 +52,10 @@ router.post("/:id", function(req, res, next) {
           if (answer.detail == "oui") {
             user.caracteristics.disabled = true;
           }
-        } else if (req.body.field == "artHautNiveau") {
-          if (answer.detail == "oui") {
-            user.caracteristics.artist = true;
-          }
-        } else {
+        } else if (req.body.field == "helpMessage"){
+          user.aide = true;
+          user.aideMessage = answer.body;
+        }else {
           user.details[req.body.field] = answer.detail;
         }
       }
