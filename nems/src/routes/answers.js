@@ -19,24 +19,27 @@ router.post("/:id", function(req, res, next) {
         user.completion = Math.min((user.numberQuestions / nQ) * 100, 100);
         answer = req.body.answer;
         if (req.body.field) {
-          if (req.body.field == "hautNiveau") {
-            if (answer.detail == "1") {
+          if (req.body.field === "hautNiveau") {
+            if (answer.detail === "1") {
               user.caracteristics.artist = true;
-            } else if (answer.detail == "2") {
+            } else if (answer.detail === "2") {
               user.caracteristics.athlete = true;
             }
-          } else if (req.body.field == "employe") {
-            if (answer.detail == "1") {
+          } else if (req.body.field === "employe") {
+            if (answer.detail === "1") {
               user.caracteristics.employe = true;
             }
-          } else if (req.body.field == "disabled") {
-            if (answer.detail == "oui") {
+          } else if (req.body.field === "disabled") {
+            if (answer.detail === "oui") {
               user.caracteristics.disabled = true;
             }
-          } else if (req.body.field == "helpMessage") {
+          } else if (req.body.field === "helpMessage") {
             user.aide = true;
             user.aideMessage = answer.body;
-          } else if (req.body.field == "plusMoins" || req.body.field == "won") {
+          } else if (
+            req.body.field === "plusMoins" ||
+            req.body.field === "won"
+          ) {
             user.details.numberToGuess = Math.floor(100 * Math.random());
           } else {
             user.details[req.body.field] = answer.detail;
