@@ -80,7 +80,7 @@ const UserSchema = new mongoose.Schema({
     whyNotAsso: String,
     whyNotAcceptedAsso: String
   },
-  numberChats: [String],
+  numberChats: { type: [String], default: [] },
   numberQuestions: Number,
   caracteristics: {
     athlete: { type: Boolean, default: false },

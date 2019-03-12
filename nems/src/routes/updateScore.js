@@ -9,11 +9,7 @@
 /* eslint-disable space-before-fuction-paren */
 
 function fidelity(user) {
-  if (
-    user.numberChats === undefined ||
-    user.numberChats === null ||
-    user.numberChats.length === 0
-  ) {
+  if (user.numberChats.length === 0) {
     return 0;
   } else {
     var score = 0;
@@ -26,11 +22,11 @@ function fidelity(user) {
       lastChat.split("T")[0].split("-")[1],
       lastChat.split("T")[0].split("-")[2]
     ];
-    const reg = user.registration + "";
+    const reg = user.registration;
     var dateRegistration = [
-      reg.split("T")[0].split("-")[0],
-      reg.split("T")[0].split("-")[1],
-      reg.split("T")[0].split("-")[2]
+      reg.getFullYear(),
+      reg.getMonth() + 1,
+      reg.getDate()
     ];
 
     if (today[1] - lastEval[1] >= 1 || today[0] - lastEval[0] >= 1) {
@@ -41,17 +37,20 @@ function fidelity(user) {
       score += 3;
     } else if (today[2] - lastEval[2] > 7) {
       score += 4;
-    } else if (today[2] - lastEval[2] < 7) {
+    } else {
       score += 5;
     }
-
+    console.log(score);
     var nbchats = user.numberChats.length;
     var nbMois =
       (today[0] - dateRegistration[0]) * 12 + today[1] - dateRegistration[1];
 
+    console.log(dateRegistration);
+    console.log(today);
+
     if (nbMois === 0 && nbchats === 1) {
       score += 2;
-    } else if (nbMois === 0 && nbchats === 2) {
+    } else if (nbMois === 0) {
       score += 4;
     } else if (nbchats > 2 * nbMois) {
       score += 5;
@@ -60,7 +59,7 @@ function fidelity(user) {
     } else if (nbchats < nbMois) {
       score += 1;
     }
-
+    console.log(score);
     return score;
   }
 }
