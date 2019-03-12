@@ -5,25 +5,6 @@ var User = require("../models/User.js");
 var Answer = require("../models/Answer.js");
 const updateScore = require("./updateScore").updateScore;
 var nQ = 25;
-/*
-GET ALL ANSWERS
-
-router.get("/", function(req, res, next) {
-  Answer.find(function(err, answers) {
-    if (err) return next(err);
-    res.json(answers);
-  });
-});
-
-SAVE Answer 
-
-router.post('/', function(req, res, next) {
-  Answer.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-*/
 
 /* SEND ANSWERS */
 
@@ -33,9 +14,7 @@ router.post("/:id", function(req, res, next) {
       return next(err);
     } else{
       var promise1 = new Promise(function(resolve, reject) {
-        console.log(user.currentBreak);
       user.currentBreak.pop();
-      console.log(user.currentBreak);
       user.numberQuestions = user.numberQuestions + 1;
       user.completion = Math.min((user.numberQuestions / nQ) * 100, 100);
       answer = req.body.answer;
@@ -66,10 +45,8 @@ router.post("/:id", function(req, res, next) {
           user.currentBreak.push(answer.idQ);
         }
       }
-      console.log("Updating stats...");
       updateScore(user);
       user.save();
-      console.log(user.currentBreak);
       resolve();
       });
       
@@ -79,25 +56,5 @@ router.post("/:id", function(req, res, next) {
     }
   });
 });
-
-/*
-UPDATE Answer
-
-router.put("/:id", function(req, res, next) {
-  Answer.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
-DELETE Answer
-
-router.delete("/:id", function(req, res, next) {
-  Answer.findByIdAndRemove(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-*/
 
 module.exports = router;
