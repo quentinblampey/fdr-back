@@ -14,38 +14,9 @@ router.get("/", function(req, res, next) {
   });
 });
 
-/* GET SINGLE Question BY ID OF PREVIOUS ANSWER */
-
-/*
-router.get('/:idQ', function(req, res, next) {
-  Question.findOne({idQ: req.params.idQ}, function (err, post) {
-    if (err) return next(err);
-    if (post.personalized) {
-      // post.construct(req.body.details) 
-      post = construct(post,req.body.details)
-    }
-    res.json(post);
-  });
-});
-*/
-
-/*
-router.post('/:idQ', function(req, res, next) {
-  Question.findOne({idQ: req.params.idQ}, function (err, post) {
-    if (err) return next(err);
-    if (post.personalized) {
-      // post.construct(req.body.details) 
-      post = construct(post,req.body.details)
-    }
-    res.json(post);
-  });
-});
-*/
-
 /* FIND A NEW QUESTION AND CHECK IF THE CHAT IS FINISH */
 router.post("/:id", function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
-    console.log('quest', user.currentBreak)
     if (err) {
       return next(err);
     }
@@ -62,28 +33,10 @@ router.post("/:id", function(req, res, next) {
         if (question.personalized) {
           question = construct(question, user.details);
         }
-        console.log(question.idQ);
         res.json({ question: question, isFinish: false, user: user });
       });
     }
   });
 });
-
-/*
-UPDATE Question 
-router.put("/:id", function(req, res, next) {
-  Question.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
-DELETE Question
-router.delete("/:id", function(req, res, next) {
-  Question.findByIdAndRemove(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});*/
 
 module.exports = router;

@@ -75,8 +75,6 @@ const UserSchema = new mongoose.Schema({
     familyResponsibility: String,
     familyResponsibilityDanger: String,
     asso: String,
-    needHelp: String,
-    helpMessage: String,
     whyNotAsso: String,
     whyNotAcceptedAsso: String
   },

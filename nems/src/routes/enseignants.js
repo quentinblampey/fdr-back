@@ -21,8 +21,6 @@ router.post("/create/:mdp", function(req, res, next) {
   var hash = crypto
     .pbkdf2Sync(req.params.mdp, salt, 1000, 64, "sha512")
     .toString("hex");
-  console.log(hash);
-  console.log(salt);
   Ens.create({ hash: hash, salt: salt }, function(err, ens) {
     if (err) {
       return next(err);
