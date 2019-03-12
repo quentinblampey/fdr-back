@@ -65,13 +65,13 @@ function motivation(user) {
     }
   }
   if (user.details.notesCours !== undefined) {
-    if (user.details.notesCours == "0") {
+    if (user.details.notesCours === "0") {
       res += 5;
     }
     weights += 0.5;
   }
   if (user.details.repriseTD !== undefined) {
-    if (user.details.repriseTD == "1") {
+    if (user.details.repriseTD === "1") {
       res += 5;
     }
     weights += 0.5;
@@ -233,10 +233,10 @@ function integration(user) {
     }
     weights += 1;
   }
-  if (user.details.newCity == "1") {
+  if (user.details.newCity === "1") {
     weights += 0.5;
   }
-  if (user.details.foreigner == "1") {
+  if (user.details.foreigner === "1") {
     weights += 1;
   }
   if (user.details.frenchLevel !== undefined) {
