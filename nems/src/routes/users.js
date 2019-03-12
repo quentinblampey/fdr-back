@@ -56,6 +56,7 @@ router.get("/getid/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
+    console.log(users);
     res.json(users);
   });
 });

@@ -54,7 +54,7 @@ router.post("/:id", function(req, res, next) {
           }
         } else if (req.body.field == "helpMessage"){
           user.aide = true;
-          userMessage = answer.detail;
+          user.aideMessage = answer.body;
         }else {
           user.details[req.body.field] = answer.detail;
         }
