@@ -76,7 +76,9 @@ const UserSchema = new mongoose.Schema({
     familyResponsibilityDanger: String,
     asso: String,
     whyNotAsso: String,
-    whyNotAcceptedAsso: String
+    whyNotAcceptedAsso: String,
+    numberToGuess: Number,
+    steps: Number,
   },
   numberChats: { type: [String], default: [] },
   numberQuestions: Number,
@@ -100,7 +102,7 @@ const UserSchema = new mongoose.Schema({
     lifestyle: { type: [Number], default: [] },
     integration: { type: [Number], default: [] },
     noOrientation: { type: [Number], default: [] }
-  }
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);
