@@ -301,7 +301,6 @@ function updateScore(user) {
     user.score.mean = -1;
   } else {
     user.score.mean = Math.pow(moy, 1.0 / n);
-    console.log("mean", user.score.mean);
   }
 }
 
