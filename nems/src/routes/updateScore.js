@@ -240,7 +240,7 @@ function integration(user) {
     weights += 1;
   }
   if (user.details.frenchLevel !== undefined) {
-    res += 5 * parseInt(user.details.timeWithFriend);
+    res += 5 * parseInt(user.details.frenchLevel);
     weights += 1;
   }
   if (user.details.travailGroupe !== undefined) {
