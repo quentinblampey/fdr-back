@@ -21,7 +21,7 @@ router.post("/:id", function(req, res, next) {
       return next(err);
     }
     if (user.currentBreak.length == 0) {
-      user.currentBreak = user.nextBreak;
+      user.currentBreak = user.nextBreak.reverse();
       user.nextBreak = [];
       user.save();
       res.json({ question: {}, isFinish: true, user: user });
