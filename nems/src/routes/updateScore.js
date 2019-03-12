@@ -1,13 +1,3 @@
-/* eslint-disable object-shorthand */
-/* eslint-disable comma-dangle */
-/* eslint-disable id-length */
-/* eslint-disable vars-on-top */
-/* eslint-disable no-var */
-/* eslint-disable quotes */
-/* eslint-disable no-magic-numbers */
-/* eslint-disable indent */
-/* eslint-disable space-before-fuction-paren */
-
 function fidelity(user) {
   if (user.numberChats.length === 0) {
     return 0;
@@ -40,13 +30,10 @@ function fidelity(user) {
     } else {
       score += 5;
     }
-    console.log(score);
+
     var nbchats = user.numberChats.length;
     var nbMois =
       (today[0] - dateRegistration[0]) * 12 + today[1] - dateRegistration[1];
-
-    console.log(dateRegistration);
-    console.log(today);
 
     if (nbMois === 0 && nbchats === 1) {
       score += 2;
@@ -59,13 +46,12 @@ function fidelity(user) {
     } else if (nbchats < nbMois) {
       score += 1;
     }
-    console.log(score);
+
     return score;
   }
 }
 
 function motivation(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
   if (user.details.motivation !== undefined) {
@@ -77,6 +63,26 @@ function motivation(user) {
       res += 10;
       weights += 1;
     }
+  }
+  if (user.details.notesCours !== undefined) {
+    if (user.details.notesCours == "0") {
+      res += 5;
+    }
+    weights += 0.5;
+  }
+  if (user.details.repriseTD !== undefined) {
+    if (user.details.repriseTD == "1") {
+      res += 5;
+    }
+    weights += 0.5;
+  }
+  if (user.details.objectifPresenceTD !== undefined) {
+    res += (5 / 2) * parseInt(user.details.objectifPresenceTD);
+    weights += 0.5;
+  }
+  if (user.details.timeWork !== undefined) {
+    res += (10 / 3) * parseInt(user.details.timeWork);
+    weights += 1;
   }
   if (user.details.presenceTD !== undefined) {
     res += (10 / 3) * parseInt(user.details.presenceTD);
@@ -90,7 +96,6 @@ function motivation(user) {
 }
 
 function lifestyle(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
   if (user.details.houseOk !== undefined) {
@@ -108,6 +113,18 @@ function lifestyle(user) {
     }
     weights += 1;
   }
+  if (user.details.timetoFacToLong !== undefined) {
+    res += 2 * (10 - 5 * parseInt(user.details.timetoFacToLong));
+    weights += 2;
+  }
+  if (user.details.familyResponsibilityDanger !== undefined) {
+    res += 4 * (10 - 5 * parseInt(user.details.familyResponsibilityDanger));
+    weights += 4;
+  }
+  if (user.details.manageTime !== undefined) {
+    res += (10 / 2) * parseInt(user.details.manageTime);
+    weights += 0.5;
+  }
   if (
     user.details.sportBeforeComing === "non" &&
     !(user.details.sportBeforeComing === "non")
@@ -120,9 +137,43 @@ function lifestyle(user) {
   ) {
     weights += 0.5;
   }
+  if (user.details.sportNowIsFun === "oui") {
+    res += 5;
+    weights += 0.5;
+  }
+  if (user.details.missingHome !== undefined) {
+    if (user.details.missingHome === "1") {
+      res += 8;
+    }
+    if (user.details.missingHome === "2") {
+      res += 20;
+    }
+    weights += 2;
+  }
+  if (user.details.parentsOk !== undefined) {
+    if (user.details.parentsOk === "0") {
+      res += 20;
+    }
+    if (user.details.parentsOk === "1") {
+      res += 8;
+    }
+    weights += 2;
+  }
+  if (user.details.sleep !== undefined) {
+    if (user.details.sleep === "0") {
+      res += 10;
+    }
+    if (user.details.sleep === "1") {
+      res += 4;
+    }
+    weights += 1;
+  }
   if (user.details.timeWithFriend !== undefined) {
     res += (parseInt(user.details.timeWithFriend) * 5) / 2;
     weights += 0.5;
+  }
+  if (user.details.changeHome === "oui") {
+    weights += 3;
   }
   if (user.details.timeWithExtra !== undefined) {
     res += (parseInt(user.details.timeWithExtra) * 5) / 2;
@@ -136,7 +187,6 @@ function lifestyle(user) {
 }
 
 function noOrientation(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
   if (user.details.changeOrientation !== undefined) {
@@ -164,7 +214,6 @@ function noOrientation(user) {
 }
 
 function integration(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
   if (user.details.integration !== undefined) {
@@ -183,6 +232,20 @@ function integration(user) {
       res += 10;
     }
     weights += 1;
+  }
+  if (user.details.newCity == "1") {
+    weights += 0.5;
+  }
+  if (user.details.foreigner == "1") {
+    weights += 1;
+  }
+  if (user.details.frenchLevel !== undefined) {
+    res += 5 * parseInt(user.details.timeWithFriend);
+    weights += 1;
+  }
+  if (user.details.travailGroupe !== undefined) {
+    res += (10 / 3 / 2) * parseInt(user.details.travailGroupe);
+    weights += 0.5;
   }
   if (user.details.friendsOk === "non") {
     weights += 4;
