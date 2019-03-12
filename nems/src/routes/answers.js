@@ -26,7 +26,9 @@ router.post("/:id", function(req, res, next) {
               user.caracteristics.athlete = true;
             }
           } else if (req.body.field == "employe") {
-            user.caracteristics.employe = true;
+            if (answer.detail == "1") {
+              user.caracteristics.employe = true;
+            }
           } else if (req.body.field == "disabled") {
             if (answer.detail == "oui") {
               user.caracteristics.disabled = true;
