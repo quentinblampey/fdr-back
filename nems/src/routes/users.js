@@ -16,8 +16,7 @@ router.post("/initget", function(req, res, next) {
       return next(err);
     }
     if (post === null) {
-      console.log("creating...");
-      firstTrees = [79, 77, 72, 68, 63, 57, 48, 47, 34, 18, 13, 1];
+      firstTrees = [80, 79, 77, 72, 68, 63, 57, 48, 47, 34, 18, 13, 1];
       nextTrees = [50];
       User.create(
         {
@@ -40,7 +39,6 @@ router.post("/initget", function(req, res, next) {
         },
         function(err, post) {
           if (err) return next(err);
-          console.log("Created !");
           res.json(post);
         }
       );
@@ -56,7 +54,6 @@ router.get("/getid/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    console.log(users);
     res.json(users);
   });
 });
@@ -73,7 +70,6 @@ router.post("/aide/:id/:help", function(req, res, next) {
     try {
       user.aideMessage = req.body.message;
     } catch (error) {
-      console.log(error);
       user.aideMessage = "Pas de message de l'étudiant.";
     }
 
@@ -197,7 +193,6 @@ router.put("/endchat/:id", function(req, res, next) {
     user.numberChats.push(date.toString());
     user.score.fidelity = fidelity(user);
     user.save();
-    console.log("Chat is done !");
     res.json(user);
   });
 });
@@ -205,7 +200,6 @@ router.put("/endchat/:id", function(req, res, next) {
 /* SAVE USER SCORES */
 
 router.put("/save_scores", function(req, res, next) {
-  console.log("Saving scores");
   User.find({}, (err, users) => {
     users.forEach(user => {
       saveScore(user);
@@ -214,26 +208,9 @@ router.put("/save_scores", function(req, res, next) {
   });
 });
 
-/*
-UPDATE USER AFTER SENDING AN ANSWER, NOT NECESSARY
-
-router.put("/:id", function(req, res, next) {
-  User.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    field = req.body.field;
-    post.details[field] = req.body.answer.detail;
-    updateScore(post);
-    post.save();
-    res.json(post);
-  });
-});
-
-DELETE USER, NOT NECESSARY */
-
-router.delete("/:id", function(req, res, next) {
-  User.findByIdAndRemove(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
+router.get("/clear", function(req, res, next) {
+  User.deleteMany({}, (err, users) => {
+    res.send(users);
   });
 });
 

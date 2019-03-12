@@ -32,16 +32,10 @@ router.post("/newfile", upload.single("file"), function(req, res, next) {
   });
 });
 
-module.exports = router;
-
 router.post("/clear", function(req, res, next) {
   Question.deleteMany({}, async (err, del) => {
     res.send(del);
   });
 });
 
-router.get("/crash", function(req, res, next) {
-  Question.deleteMany({}, async (err, del) => {
-    res.send(del);
-  });
-});
+module.exports = router;

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
 
-const range = 10;
 const val1 = 3;
 const val2 = 7;
 const topercent = 100;
@@ -15,8 +14,6 @@ router.post("/global", (req, res, next) => {
   User.find({}, (err, users) => {
     users.forEach(student => {
       let score = student.score[req.body.field];
-      //let score = range * Math.random();
-      console.log(score);
       if (score >= 0) {
         taille += 1;
         if (score < val1) {

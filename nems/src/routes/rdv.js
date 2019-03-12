@@ -13,7 +13,6 @@ const Rdv = require("../models/Rdv.js");
 
 /* GET USER BY ID */
 router.post("/newrdv/:id", function(req, res, next) {
-  console.log(req.body.horr);
   const nhoraire = String(req.body.horr);
   const nidU = req.params.id;
   Rdv.create({ idU: nidU, horaire: nhoraire }, function(err, rdv) {
