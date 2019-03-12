@@ -45,7 +45,6 @@ router.post("/:id", function(req, res, next) {
           user.nextBreak.push(answer.idQ);
         } else {
           if (answer.idQ === -1){
-            console.log(answer.body, user.details.numberToGuess, answer.body === user.details.numberToGuess)
             if (parseInt(answer.body) === parseInt(user.details.numberToGuess)){
               user.currentBreak.push(154);
             }else if (answer.body > user.details.numberToGuess){
