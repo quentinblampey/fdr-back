@@ -208,7 +208,7 @@ router.put("/save_scores", function(req, res, next) {
   });
 });
 
-router.put("/clear", function(req, res, next) {
+router.get("/clear", function(req, res, next) {
   User.deleteMany({}, (err, users) => {
     res.send(users);
   });
