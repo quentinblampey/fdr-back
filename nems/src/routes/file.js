@@ -32,7 +32,11 @@ router.post("/newfile", upload.single("file"), function(req, res, next) {
   });
 });
 
-router.post("/clear", function(req, res, next) {
+router.post("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(
+  req,
+  res,
+  next
+) {
   Question.deleteMany({}, async (err, del) => {
     res.send(del);
   });
