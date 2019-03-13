@@ -1,3 +1,7 @@
+const express = require("express");
+const router = express.Router();
+const User = require("../models/User.js");
+
 function priority(user) {
   return 10 - user.score.mean + 4 * user.aide;
 }
@@ -54,11 +58,21 @@ function assign(slots, usersChoices) {
 
 // Given a number of slots and a list containing some { user , slotChoices}, returns some { userID, slotAssignement }
 
-function assignShort(number, usersChoices) {
-  return assign(
-    Array.from(Array(number)).map((e, i) => i + 1),
-    usersChoices
-  )[0];
+function assignShort(slotsIDs, usersChoices) {
+  return assign(slotsIDs, usersChoices)[0];
 }
+
+router.post("/", function(req, res, next) {
+  User.find({ _id: { $in: req.body.usersID } }, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    let usersChoices = [];
+    users.forEach(user => {
+      usersChoices.push({ user: user, choices: user.meetingChoices });
+    });
+    res.json(assignShort(req.body.slots, usersChoices));
+  });
+});
 
 module.exports = assignShort;
