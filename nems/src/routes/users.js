@@ -1,3 +1,6 @@
+/* eslint-disable no-magic-numbers */
+/* eslint-disable indent */
+/* eslint-disable prefer-arrow-callback */
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
@@ -13,14 +16,17 @@ router.post("/initget", function(req, res, next) {
       return next(err);
     }
     if (post === null) {
-      console.log("creating...");
-      firstTrees = [58, 66, 36, 27, 13, 1];
+      firstTrees = [150, 80, 79, 77, 72, 68, 63, 57, 48, 47, 34, 18, 28, 13, 1];
+      nextTrees = [50];
       User.create(
         {
           pseudo: pseudo,
+          helped: false,
           registration: Date.now().toString(),
           numberQuestions: 0,
           numberChats: [],
+          aide: false,
+          aideMessage: "",
           currentBreak: firstTrees,
           caracteristics: {
             athlete: false,
@@ -28,12 +34,11 @@ router.post("/initget", function(req, res, next) {
             employe: false,
             artist: false
           },
-          nextBreak: [],
+          nextBreak: nextTrees,
           details: { name: "undefined" }
         },
         function(err, post) {
           if (err) return next(err);
-          console.log("Created !");
           res.json(post);
         }
       );
@@ -49,6 +54,40 @@ router.get("/getid/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
+    res.json(users);
+  });
+});
+
+/* AIDE BY ID */
+router.post("/aide/:id/:help", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+
+    user.aide = true;
+
+    try {
+      user.aideMessage = req.body.message;
+    } catch (error) {
+      user.aideMessage = "Pas de message de l'étudiant.";
+    }
+
+    user.save();
+
+    res.json(user);
+  });
+});
+
+/* HELP USER */
+router.post("/help/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    users.helped = true;
+    users.save();
+
     res.json(users);
   });
 });
@@ -103,21 +142,38 @@ router.get("/sorted/caracteristics/:filter", function(req, res, next) {
   });
 });
 
+/* FILTER BY HELPED */
+
+router.get("/helped", function(req, res, next) {
+  var queryParam = {};
+  queryParam["helped"] = true;
+  User.find(queryParam, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    res.json(users);
+  });
+});
+
 /* FILTER AND SORT USERS */
 
-router.get("/filter", function(req, res, next) {
+router.post("/filter", function(req, res, next) {
   var queryFilter = {};
   var querySort = {};
+  queryFilter["helped"] = false;
   req.body.filter.forEach(filter => {
     queryFilter["caracteristics." + filter.toString()] = true;
+  });
+  if (req.body.filterHelp) {
+    queryFilter["aide"] = true;
+  }
+  req.body.sortScore.forEach(param => {
+    querySort["score." + param.toString()] = 1;
+    queryFilter["score." + param.toString()] = { $gt: 0 };
   });
   req.body.sort.forEach(param => {
     querySort[param.toString()] = 1;
     queryFilter[param.toString()] = { $gt: 0 };
-  });
-  req.body.sortScore.forEach(param => {
-    querySort["score." + param.toString()] = 1;
-    queryFilter["score." + param.toString()] = { $gt: 0 };
   });
   User.find(queryFilter, null, { sort: querySort }, function(err, users) {
     if (err) {
@@ -137,7 +193,6 @@ router.put("/endchat/:id", function(req, res, next) {
     user.numberChats.push(date.toString());
     user.score.fidelity = fidelity(user);
     user.save();
-    console.log("Chat is done !");
     res.json(user);
   });
 });
@@ -145,7 +200,6 @@ router.put("/endchat/:id", function(req, res, next) {
 /* SAVE USER SCORES */
 
 router.put("/save_scores", function(req, res, next) {
-  console.log("Saving scores");
   User.find({}, (err, users) => {
     users.forEach(user => {
       saveScore(user);
@@ -154,26 +208,9 @@ router.put("/save_scores", function(req, res, next) {
   });
 });
 
-/*
-UPDATE USER AFTER SENDING AN ANSWER, NOT NECESSARY
-
-router.put("/:id", function(req, res, next) {
-  User.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    field = req.body.field;
-    post.details[field] = req.body.answer.detail;
-    updateScore(post);
-    post.save();
-    res.json(post);
-  });
-});
-
-DELETE USER, NOT NECESSARY */
-
-router.delete("/:id", function(req, res, next) {
-  User.findByIdAndRemove(req.params.id, req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
+router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
+  User.deleteMany({}, (err, users) => {
+    res.send(users);
   });
 });
 

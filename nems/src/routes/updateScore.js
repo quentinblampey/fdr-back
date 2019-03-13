@@ -1,10 +1,5 @@
-/* eslint-disable indent */
 function fidelity(user) {
-  if (
-    user.numberChats === undefined ||
-    user.numberChats === null ||
-    user.numberChats.length === 0
-  ) {
+  if (user.numberChats.length === 0) {
     return 0;
   } else {
     var score = 0;
@@ -17,11 +12,11 @@ function fidelity(user) {
       lastChat.split("T")[0].split("-")[1],
       lastChat.split("T")[0].split("-")[2]
     ];
-    const reg = user.registration + "";
+    const reg = user.registration;
     var dateRegistration = [
-      reg.split("T")[0].split("-")[0],
-      reg.split("T")[0].split("-")[1],
-      reg.split("T")[0].split("-")[2]
+      reg.getFullYear(),
+      reg.getMonth() + 1,
+      reg.getDate()
     ];
 
     if (today[1] - lastEval[1] >= 1 || today[0] - lastEval[0] >= 1) {
@@ -32,7 +27,7 @@ function fidelity(user) {
       score += 3;
     } else if (today[2] - lastEval[2] > 7) {
       score += 4;
-    } else if (today[2] - lastEval[2] < 7) {
+    } else {
       score += 5;
     }
 
@@ -42,7 +37,7 @@ function fidelity(user) {
 
     if (nbMois === 0 && nbchats === 1) {
       score += 2;
-    } else if (nbMois === 0 && nbchats === 2) {
+    } else if (nbMois === 0) {
       score += 4;
     } else if (nbchats > 2 * nbMois) {
       score += 5;
@@ -57,24 +52,43 @@ function fidelity(user) {
 }
 
 function motivation(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.motivation != undefined) {
+  if (user.details.motivation !== undefined) {
     res += 3 * 2 * parseInt(user.details.motivation);
     weights += 3;
   }
-  if (user.details.whyWorks != undefined) {
-    if (user.details.whyWorks != "0") {
+  if (user.details.whyWorks !== undefined) {
+    if (user.details.whyWorks !== "0") {
       res += 10;
       weights += 1;
     }
   }
-  if (user.details.presenceTD != undefined) {
+  if (user.details.notesCours !== undefined) {
+    if (user.details.notesCours === "0") {
+      res += 5;
+    }
+    weights += 0.5;
+  }
+  if (user.details.repriseTD !== undefined) {
+    if (user.details.repriseTD === "1") {
+      res += 5;
+    }
+    weights += 0.5;
+  }
+  if (user.details.objectifPresenceTD !== undefined) {
+    res += (5 / 2) * parseInt(user.details.objectifPresenceTD);
+    weights += 0.5;
+  }
+  if (user.details.timeWork !== undefined) {
+    res += (10 / 3) * parseInt(user.details.timeWork);
+    weights += 1;
+  }
+  if (user.details.presenceTD !== undefined) {
     res += (10 / 3) * parseInt(user.details.presenceTD);
     weights += 1;
   }
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -82,45 +96,90 @@ function motivation(user) {
 }
 
 function lifestyle(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.houseOk != undefined) {
-    if (user.details.houseOk == "non") {
+  if (user.details.houseOk !== undefined) {
+    if (user.details.houseOk === "non") {
     } else {
       res += 10;
     }
     weights += 1;
   }
-  if (user.details.timeToFac != undefined) {
-    if (user.details.timeToFac == "0") {
+  if (user.details.timeToFac !== undefined) {
+    if (user.details.timeToFac === "0") {
       res += 10;
-    } else if (user.details.timeToFac == "1") {
+    } else if (user.details.timeToFac === "1") {
       res += 6;
     }
     weights += 1;
   }
+  if (user.details.timetoFacToLong !== undefined) {
+    res += 2 * (10 - 5 * parseInt(user.details.timetoFacToLong));
+    weights += 2;
+  }
+  if (user.details.familyResponsibilityDanger !== undefined) {
+    res += 4 * (10 - 5 * parseInt(user.details.familyResponsibilityDanger));
+    weights += 4;
+  }
+  if (user.details.manageTime !== undefined) {
+    res += (10 / 2) * parseInt(user.details.manageTime);
+    weights += 0.5;
+  }
   if (
-    user.details.sportBeforeComing == "non" &&
-    !(user.details.sportBeforeComing == "non")
+    user.details.sportBeforeComing === "non" &&
+    !(user.details.sportBeforeComing === "non")
   ) {
     res += 5;
     weights += 0.5;
   } else if (
-    user.details.sportBeforeComing != "non" &&
-    user.details.sportBeforeComing == "non"
+    user.details.sportBeforeComing !== "non" &&
+    user.details.sportBeforeComing === "non"
   ) {
     weights += 0.5;
   }
-  if (user.details.timeWithFriend != undefined) {
+  if (user.details.sportNowIsFun === "oui") {
+    res += 5;
+    weights += 0.5;
+  }
+  if (user.details.missingHome !== undefined) {
+    if (user.details.missingHome === "1") {
+      res += 8;
+    }
+    if (user.details.missingHome === "2") {
+      res += 20;
+    }
+    weights += 2;
+  }
+  if (user.details.parentsOk !== undefined) {
+    if (user.details.parentsOk === "0") {
+      res += 20;
+    }
+    if (user.details.parentsOk === "1") {
+      res += 8;
+    }
+    weights += 2;
+  }
+  if (user.details.sleep !== undefined) {
+    if (user.details.sleep === "0") {
+      res += 10;
+    }
+    if (user.details.sleep === "1") {
+      res += 4;
+    }
+    weights += 1;
+  }
+  if (user.details.timeWithFriend !== undefined) {
     res += (parseInt(user.details.timeWithFriend) * 5) / 2;
     weights += 0.5;
   }
-  if (user.details.timeWithExtra != undefined) {
+  if (user.details.changeHome === "oui") {
+    weights += 3;
+  }
+  if (user.details.timeWithExtra !== undefined) {
     res += (parseInt(user.details.timeWithExtra) * 5) / 2;
     weights += 0.5;
   }
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -128,27 +187,26 @@ function lifestyle(user) {
 }
 
 function noOrientation(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.changeOrientation != undefined) {
-    if (user.details.changeOrientation == "non") {
+  if (user.details.changeOrientation !== undefined) {
+    if (user.details.changeOrientation === "non") {
       res += 14;
     }
     weights += 2;
   }
-  if (user.details.whyWorks == "0") {
+  if (user.details.whyWorks === "0") {
     weights += 0.5;
-  } else if (user.details.whyWorks == "1" || user.details.whyWorks == "3") {
+  } else if (user.details.whyWorks === "1" || user.details.whyWorks === "3") {
     res += 20;
     weights += 2;
   }
-  if (user.details.helpMotivation == "0") {
+  if (user.details.helpMotivation === "0") {
     weights += 0.5;
   }
   res += 1;
   weights += 0.1;
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -156,40 +214,53 @@ function noOrientation(user) {
 }
 
 function integration(user) {
-  // return 10 * Math.random();
   let res = 0;
   let weights = 0;
-  if (user.details.integration != undefined) {
+  if (user.details.integration !== undefined) {
     res += 2 * parseInt(user.details.integration);
     weights += 1;
   }
-  if (user.details.house == 1) {
+  if (user.details.house === 1) {
     res += 5;
     weights += 0.5;
   }
-  if (user.details.house == 0) {
+  if (user.details.house === 0) {
     weights += 0.5;
   }
-  if (user.details.timeWithFriend != undefined) {
+  if (user.details.timeWithFriend !== undefined) {
     if (parseInt(user.details.timeWithFriend) > 0) {
       res += 10;
     }
     weights += 1;
   }
-  if (user.details.friendsOk == "non") {
+  if (user.details.newCity === "1") {
+    weights += 0.5;
+  }
+  if (user.details.foreigner === "1") {
+    weights += 1;
+  }
+  if (user.details.frenchLevel !== undefined) {
+    res += 5 * parseInt(user.details.frenchLevel);
+    weights += 1;
+  }
+  if (user.details.travailGroupe !== undefined) {
+    res += (10 / 3 / 2) * parseInt(user.details.travailGroupe);
+    weights += 0.5;
+  }
+  if (user.details.friendsOk === "non") {
     weights += 4;
   }
-  if (user.details.newFriend != undefined) {
-    if (user.details.newFriend == "oui") {
+  if (user.details.newFriend !== undefined) {
+    if (user.details.newFriend === "oui") {
       res += 20;
     }
     weights += 2;
   }
-  if (user.details.knownPerson != undefined) {
+  if (user.details.knownPerson !== undefined) {
     res += (10 / 3) * 2 * parseInt(user.details.knownPerson);
     weights += 2;
   }
-  if (weights != 0) {
+  if (weights !== 0) {
     return res / weights;
   } else {
     return -1;
@@ -203,6 +274,34 @@ function updateScore(user) {
   user.score.lifestyle = lifestyle(user);
   user.score.noOrientation = noOrientation(user);
   user.score.integration = integration(user);
+
+  let moy = 1;
+  let n = 0;
+  if (user.score.motivation > 0) {
+    moy *= user.score.motivation;
+    n++;
+  }
+  if (user.score.lifestyle > 0) {
+    moy *= user.score.lifestyle;
+    n++;
+  }
+  if (user.score.noOrientation > 0) {
+    moy *= user.score.noOrientation;
+    n++;
+  }
+  if (user.score.integration > 0) {
+    moy *= user.score.integration;
+    n++;
+  }
+  if (user.score.fidelity > 0) {
+    moy *= user.score.fidelity;
+    n++;
+  }
+  if (n === 0) {
+    user.score.mean = -1;
+  } else {
+    user.score.mean = Math.pow(moy, 1.0 / n);
+  }
 }
 
 // SAVE SCORE OF THE USER IN HIS HISTORIC

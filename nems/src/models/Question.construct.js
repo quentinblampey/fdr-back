@@ -17,14 +17,12 @@ var construct = function(question, details) {
           question.persoBody[0] +
           " " +
           details.sportBeforeComing +
-          " " +
           question.persoBody[1];
       } else {
         question.body =
           question.persoBody[0] +
           " " +
           details.sportNow +
-          " " +
           question.persoBody[1];
       }
       break;
@@ -45,7 +43,7 @@ var construct = function(question, details) {
           question.persoBody[1];
       }
       break;
-    case 24:
+    case 31:
       if (details.newFriend == "0") {
         question.body = question.persoBody[0] + " 0 " + question.persoBody[1];
       } else {
