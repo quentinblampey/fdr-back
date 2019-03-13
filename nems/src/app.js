@@ -15,6 +15,7 @@ const file = require("./routes/file");
 const enseignants = require("./routes/enseignants");
 const stats = require("./routes/stats");
 const rdv = require("./routes/rdv");
+const creneaux = require("./routes/creneaux");
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use("/api/file", file);
 app.use("/api/enseignants", enseignants);
 app.use("/api/stats", stats);
 app.use("/api/rdv", rdv);
+app.use("/api/creneaux", creneaux);
 
 // Basic error handling middleware
 app.use(errorHandler);

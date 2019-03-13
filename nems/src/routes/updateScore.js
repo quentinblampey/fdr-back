@@ -1,3 +1,6 @@
+/* eslint-disable indent */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 function fidelity(user) {
   if (user.numberChats.length === 0) {
     return 0;
