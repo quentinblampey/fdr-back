@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var Slot = require("./Slot");
 
 const UserSchema = new mongoose.Schema({
   registration: Date,
@@ -8,6 +9,8 @@ const UserSchema = new mongoose.Schema({
   completion: Number,
   aide: { type: Boolean, default: false },
   aideMessage: String,
+  currentSlot: Slot,
+  passedSlots: [Slot],
   helped: Boolean,
   details: {
     name: String,
