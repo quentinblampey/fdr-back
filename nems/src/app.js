@@ -14,6 +14,7 @@ const questions = require("./routes/questions");
 const file = require("./routes/file");
 const enseignants = require("./routes/enseignants");
 const stats = require("./routes/stats");
+const assign = require("./routes/assign");
 const rdv = require("./routes/rdv");
 const creneaux = require("./routes/creneaux");
 
@@ -49,6 +50,7 @@ app.use("/static", express.static(require("path").join(__dirname, "./static")));
 
 // Define routes
 app.use("/api/users", users);
+app.use("/api/assign", assign);
 app.use("/api/answers", answers);
 app.use("/api/questions", questions);
 app.use("/api/file", file);

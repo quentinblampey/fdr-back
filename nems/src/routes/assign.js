@@ -75,4 +75,4 @@ router.post("/", function(req, res, next) {
   });
 });
 
-module.exports = assignShort;
+module.exports = router;
