@@ -221,7 +221,7 @@ router.post("/chosen-slots/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    user.chosenSlots = req.body.chosenSlots;
+    user.chosenSlots.push(req.body.chosenSlot);
     user.save();
     res.json(user);
   });
