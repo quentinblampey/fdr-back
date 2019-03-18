@@ -35,7 +35,8 @@ router.post("/initget", function(req, res, next) {
             artist: false
           },
           nextBreak: nextTrees,
-          details: { name: "undefined" }
+          details: { name: "undefined" },
+          textContrat: ''
         },
         function(err, post) {
           if (err) return next(err);
@@ -214,7 +215,18 @@ router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
   });
 });
 
-// ADD CHOSEN SLOTS
+// ADD CONTRACT TEXT
+
+router.post("/textContrat/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    users.textContrat = req.body.textContrat;
+    users.save();
+    res.json(users);
+  });
+});
 
 router.post("/chosen-slots/:id", function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
