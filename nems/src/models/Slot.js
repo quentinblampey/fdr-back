@@ -6,4 +6,4 @@ var SlotSchema = new mongoose.Schema({
   affection: { type: String, default: "" }
 });
 
-module.exports = SlotSchema;
+module.exports = mongoose.model("Slot", SlotSchema);
