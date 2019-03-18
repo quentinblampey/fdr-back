@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-var Slot = require("./Slot");
 
 const UserSchema = new mongoose.Schema({
   registration: Date,
