@@ -26,7 +26,7 @@ router.post("/", function(req, res, next) {
   );
 });
 
-/* GETS ALL THE CRENEAUX OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
+/* GETS ALL THE SLOTS */
 
 router.get("/", function(req, res, next) {
   Slot.find(function(err, slots) {
@@ -38,7 +38,7 @@ router.get("/", function(req, res, next) {
   });
 });
 
-/* GETS ALL THE CRENEAUX OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
+/* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
 
 router.get("/getfree/", function(req, res, next) {
   Slot.find({ affectation: "" }, function(err, slots) {
