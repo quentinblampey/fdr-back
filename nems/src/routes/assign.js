@@ -67,6 +67,10 @@ function addSlotUser(slotId, userId, users) {
   for (let user of users) {
     if (user._id === userId) {
       user.currentSlot = slotId;
+      user.chosenSlots.forEach(slotID => {
+        user.passedSlot.push(slotID);
+      });
+      user.chosenSlots = [];
       user.save();
       break;
     }
@@ -78,17 +82,21 @@ router.post("/", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    Slot.find({}, function(err, slots) {
+    Slot.find({ affectation: "" }, function(err, slots) {
       if (err) {
         return next(err);
       }
+      let slotsIDs = [];
+      slots.forEach(slot => {
+        slotsIDs.push(slot._id);
+      });
       let usersChoices = [];
       users.forEach(user => {
         if (user.chosenSlots) {
           usersChoices.push({ user: user, choices: user.chosenSlots });
         }
       });
-      assignShort(slots, usersChoices).forEach(assignement => {
+      assignShort(slotsIDs, usersChoices).forEach(assignement => {
         addSlotUser(assignement.slot, assignement.id, users);
       });
       res.json();
