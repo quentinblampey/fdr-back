@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
+var Slot = require("./Slot");
 
 function priority(user) {
   return 10 - user.score.mean + 4 * user.aide;
@@ -62,16 +63,44 @@ function assignShort(slotsIDs, usersChoices) {
   return assign(slotsIDs, usersChoices)[0];
 }
 
+function addSlotUser(slotId, userId, users) {
+  for (let user of users) {
+    if (user._id === userId) {
+      user.currentSlot = slotId;
+      user.chosenSlots.forEach(slotID => {
+        user.passedSlot.push(slotID);
+      });
+      user.chosenSlots = [];
+      user.save();
+      break;
+    }
+  }
+}
+
 router.post("/", function(req, res, next) {
-  User.find({ _id: { $in: req.body.usersID } }, function(err, users) {
+  User.find({}, function(err, users) {
     if (err) {
       return next(err);
     }
-    let usersChoices = [];
-    users.forEach(user => {
-      usersChoices.push({ user: user, choices: user.meetingChoices });
+    Slot.find({ affectation: "" }, function(err, slots) {
+      if (err) {
+        return next(err);
+      }
+      let slotsIDs = [];
+      slots.forEach(slot => {
+        slotsIDs.push(slot._id);
+      });
+      let usersChoices = [];
+      users.forEach(user => {
+        if (user.chosenSlots) {
+          usersChoices.push({ user: user, choices: user.chosenSlots });
+        }
+      });
+      assignShort(slotsIDs, usersChoices).forEach(assignement => {
+        addSlotUser(assignement.slot, assignement.id, users);
+      });
+      res.json();
     });
-    res.json(assignShort(req.body.slots, usersChoices));
   });
 });
 

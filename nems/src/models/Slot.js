@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var SlotSchema = new mongoose.Schema({
   date: String,
   duration: Number,
-  affection: String
+  affection: { type: String, default: "" }
 });
 
 module.exports = SlotSchema;

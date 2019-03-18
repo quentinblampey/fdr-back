@@ -9,8 +9,9 @@ const UserSchema = new mongoose.Schema({
   completion: Number,
   aide: { type: Boolean, default: false },
   aideMessage: String,
-  currentSlot: Slot,
-  passedSlots: [Slot],
+  currentSlot: String,
+  chosenSlots: [String],
+  passedSlots: [String],
   helped: Boolean,
   details: {
     name: String,
