@@ -26,6 +26,7 @@ router.post("/", function(req, res, next) {
         return next(err);
       }
     });
+    return 0;
   });
 });
 
