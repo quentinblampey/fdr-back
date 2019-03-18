@@ -221,10 +221,8 @@ router.post("/chosen-slots/:id", function(req, res, next) {
     if (err) {
       return next(err);
     }
-    if (!(req.body.chosenSlot in user.chosenSlot)) {
-      user.chosenSlots.push(req.body.chosenSlot);
-      user.save();
-    }
+    user.chosenSlots = req.body.chosenSlots;
+    user.save();
     res.json(user);
   });
 });
