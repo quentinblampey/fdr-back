@@ -215,6 +215,7 @@ router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
   });
 });
 
+// ADD CONTRACT TEXT
 
 router.post("/textContrat/:id", function(req, res, next) {
   User.findById(req.params.id, function(err, users) {
@@ -224,6 +225,17 @@ router.post("/textContrat/:id", function(req, res, next) {
     users.textContrat = req.body.textContrat;
     users.save();
     res.json(users);
+  });
+});
+
+router.post("/chosen-slots/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    user.chosenSlots = req.body.chosenSlots;
+    user.save();
+    res.json(user);
   });
 });
 

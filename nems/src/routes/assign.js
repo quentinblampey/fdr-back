@@ -8,24 +8,8 @@ function priority(user) {
 }
 
 function assign(slots, usersChoices) {
-  if (slots.length === 1) {
-    let id = -1;
-    let maxPriority = 0;
-    let priorityUser;
-    for (let userChoice of usersChoices) {
-      if (userChoice.choices.includes(slots[0])) {
-        priorityUser = priority(userChoice.user);
-        if (priorityUser > maxPriority) {
-          maxPriority = priorityUser;
-          id = userChoice.user.id;
-        }
-      }
-    }
-    if (id === -1) {
-      return [[], 0];
-    } else {
-      return [[{ id: id, slot: slots[0] }], maxPriority];
-    }
+  if (slots.length === 0) {
+    return [[], 0];
   } else {
     let maxPriority = 0;
     let priorityUser;
@@ -33,7 +17,7 @@ function assign(slots, usersChoices) {
     let priorityRec;
     let userChoices;
     for (let i = 0; i < usersChoices.length; i++) {
-      if (usersChoices[i].choices.includes(slots[0])) {
+      if (usersChoices[i].choices.indexOf(slots[0]) > -1) {
         usersChoicesRec = usersChoices.slice();
         userChoices = usersChoicesRec[i];
         usersChoicesRec.splice(i, 1);
@@ -43,7 +27,7 @@ function assign(slots, usersChoices) {
         if (priorityUser + priorityRec > maxPriority) {
           maxPriority = priorityUser + priorityRec;
 
-          assigns = [{ id: userChoices.user.id, slot: slots[0] }].concat(
+          assigns = [{ id: userChoices.user._id, slot: slots[0] }].concat(
             assignsRec
           );
         }
@@ -77,6 +61,16 @@ function addSlotUser(slotId, userId, users) {
   }
 }
 
+function addUserSlot(slotId, userId, slots) {
+  for (let slot of slots) {
+    if (slot._id === slotId) {
+      slot.affectation = userId;
+      slot.save();
+      break;
+    }
+  }
+}
+
 router.post("/", function(req, res, next) {
   User.find({}, function(err, users) {
     if (err) {
@@ -90,16 +84,21 @@ router.post("/", function(req, res, next) {
       slots.forEach(slot => {
         slotsIDs.push(slot._id);
       });
+      console.log(slotsIDs);
       let usersChoices = [];
       users.forEach(user => {
-        if (user.chosenSlots) {
+        if (user.chosenSlots && user.chosenSlots.length > 0) {
+          console.log("slots :", user.chosenSlots);
           usersChoices.push({ user: user, choices: user.chosenSlots });
         }
       });
       assignShort(slotsIDs, usersChoices).forEach(assignement => {
+        console.log("5");
         addSlotUser(assignement.slot, assignement.id, users);
+        addUserSlot(assignement.slot, assignement.id, slots);
       });
-      res.json();
+      console.log("6");
+      res.json("Assignement done!");
     });
   });
 });
