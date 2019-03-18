@@ -12,22 +12,18 @@ const router = express.Router();
 const Slot = require("../models/Slot.js");
 
 /* CREATES NEW CRENEAU FOR THIS WEEK */
-router.post("/", function(req, res, next) {
-  let plage = req.body;
-  plage.map(slot => {
-    let newSlot = {
-      date: slot.date,
-      duration: slot.duration,
-      affectation: "Libre"
-    };
 
-    Slot.create(newSlot, function(err, rdv) {
-      if (err) {
-        return next(err);
-      }
-    });
-    return 0;
-  });
+router.post("/", function(req, res, next) {
+  Slot.create(
+    {
+      date: req.body.date,
+      duration: req.body.duration
+    },
+    function(err, post) {
+      if (err) return next(err);
+      res.json(post);
+    }
+  );
 });
 
 /* GETS ALL THE CRENEAUX OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
@@ -45,7 +41,7 @@ router.get("/", function(req, res, next) {
 /* GETS ALL THE CRENEAUX OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
 
 router.get("/getfree/", function(req, res, next) {
-  Slot.find({ affectation: "Libre" }, function(err, slots) {
+  Slot.find({ affectation: "" }, function(err, slots) {
     if (err) {
       return next(err);
     }

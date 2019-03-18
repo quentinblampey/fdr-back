@@ -214,4 +214,17 @@ router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
   });
 });
 
+// ADD CHOSEN SLOTS
+
+router.post("/chosen-slots/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    user.chosenSlots = req.body.chosenSlots;
+    user.save();
+    res.json(user);
+  });
+});
+
 module.exports = router;

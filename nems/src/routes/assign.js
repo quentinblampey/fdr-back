@@ -8,12 +8,24 @@ function priority(user) {
 }
 
 function assign(slots, usersChoices) {
+  if (slots.length === 0) {
+    return [[], 0];
+  }
   if (slots.length === 1) {
+    console.log("here");
     let id = -1;
     let maxPriority = 0;
     let priorityUser;
     for (let userChoice of usersChoices) {
+      console.log(
+        "userChoice.choices",
+        userChoice.choices,
+        "slots[0]",
+        slots[0]
+      );
+      console.log(userChoice.choices.includes(slots[0]));
       if (userChoice.choices.includes(slots[0])) {
+        console.log("there");
         priorityUser = priority(userChoice.user);
         if (priorityUser > maxPriority) {
           maxPriority = priorityUser;
@@ -77,6 +89,16 @@ function addSlotUser(slotId, userId, users) {
   }
 }
 
+function addUserSlot(slotId, userId, slots) {
+  for (let slot of slots) {
+    if (slot._id === slotId) {
+      slot.affectation = userId;
+      slot.save();
+      break;
+    }
+  }
+}
+
 router.post("/", function(req, res, next) {
   User.find({}, function(err, users) {
     if (err) {
@@ -90,15 +112,20 @@ router.post("/", function(req, res, next) {
       slots.forEach(slot => {
         slotsIDs.push(slot._id);
       });
+      console.log(slotsIDs);
       let usersChoices = [];
       users.forEach(user => {
-        if (user.chosenSlots) {
+        if (user.chosenSlots && user.chosenSlots.length > 0) {
+          console.log("slots :", user.chosenSlots);
           usersChoices.push({ user: user, choices: user.chosenSlots });
         }
       });
       assignShort(slotsIDs, usersChoices).forEach(assignement => {
+        console.log("5");
         addSlotUser(assignement.slot, assignement.id, users);
+        addUserSlot(assignement.slot, assignement.id, slots);
       });
+      console.log("6");
       res.json();
     });
   });
