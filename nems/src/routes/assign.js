@@ -10,34 +10,6 @@ function priority(user) {
 function assign(slots, usersChoices) {
   if (slots.length === 0) {
     return [[], 0];
-  }
-  if (slots.length === 1) {
-    console.log("here");
-    let id = -1;
-    let maxPriority = 0;
-    let priorityUser;
-    for (let userChoice of usersChoices) {
-      console.log(
-        "userChoice.choices",
-        userChoice.choices,
-        "slots[0]",
-        slots[0]
-      );
-      console.log(userChoice.choices.includes(slots[0]));
-      if (userChoice.choices.includes(slots[0])) {
-        console.log("there");
-        priorityUser = priority(userChoice.user);
-        if (priorityUser > maxPriority) {
-          maxPriority = priorityUser;
-          id = userChoice.user.id;
-        }
-      }
-    }
-    if (id === -1) {
-      return [[], 0];
-    } else {
-      return [[{ id: id, slot: slots[0] }], maxPriority];
-    }
   } else {
     let maxPriority = 0;
     let priorityUser;
@@ -45,7 +17,7 @@ function assign(slots, usersChoices) {
     let priorityRec;
     let userChoices;
     for (let i = 0; i < usersChoices.length; i++) {
-      if (usersChoices[i].choices.includes(slots[0])) {
+      if (usersChoices[i].choices.indexOf(slots[0]) > -1) {
         usersChoicesRec = usersChoices.slice();
         userChoices = usersChoicesRec[i];
         usersChoicesRec.splice(i, 1);
@@ -55,7 +27,7 @@ function assign(slots, usersChoices) {
         if (priorityUser + priorityRec > maxPriority) {
           maxPriority = priorityUser + priorityRec;
 
-          assigns = [{ id: userChoices.user.id, slot: slots[0] }].concat(
+          assigns = [{ id: userChoices.user._id, slot: slots[0] }].concat(
             assignsRec
           );
         }
@@ -126,7 +98,7 @@ router.post("/", function(req, res, next) {
         addUserSlot(assignement.slot, assignement.id, slots);
       });
       console.log("6");
-      res.json();
+      res.json("Assignement done!");
     });
   });
 });

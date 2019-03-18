@@ -9,8 +9,8 @@ const UserSchema = new mongoose.Schema({
   aide: { type: Boolean, default: false },
   aideMessage: String,
   currentSlot: String,
-  chosenSlots: [String],
-  passedSlots: [String],
+  chosenSlots: { type: [String], default: [] },
+  passedSlots: { type: [String], default: [] },
   helped: Boolean,
   details: {
     name: String,
@@ -106,7 +106,7 @@ const UserSchema = new mongoose.Schema({
     integration: { type: [Number], default: [] },
     noOrientation: { type: [Number], default: [] }
   },
-  ue:[],
+  ue: []
 });
 
 module.exports = mongoose.model("User", UserSchema);
