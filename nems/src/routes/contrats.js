@@ -24,24 +24,45 @@ router.post("/:id", function(req, res, next) {
   });
 
   router.post("/options/:id", function(req, res, next) {
-    User.findById(req.params.id, function(err, user) {
+    console.log(req.body)
+    User.findById(req.params.id, function(err, userfound) {
       if (err) {
         return next(err);
       } else {
-          console.log("1", user.ue)
-          let ue = user.ue;
-          ue.forEach(element => {
+          let aux=[];
+          userfound.ue.forEach(element => {
               if (element.name===req.body.name){
-                  element.status = req.body.status;
+                  aux.push({name:element.name, status:req.body.status, message:element.message});
+              }else{
+                  aux.push(element);
               }
           });
-          console.log("2", user.ue);
-          user.ue = ue;
-          user.save();
-          console.log("3", user.ue);
-          res.send(user);
+          userfound.ue = aux;
+          userfound.save();
+          res.send(userfound);
       }
      })
     });
+
+    router.post("/comment/:id", function(req, res, next) {
+        console.log(req.body)
+        User.findById(req.params.id, function(err, userfound) {
+          if (err) {
+            return next(err);
+          } else {
+              let aux=[];
+              userfound.ue.forEach(element => {
+                  if (element.name===req.body.name){
+                      aux.push({name:element.name, status:element.status, message:req.body.message});
+                  }else{
+                      aux.push(element);
+                  }
+              });
+              userfound.ue = aux;
+              userfound.save();
+              res.send(userfound);
+          }
+         })
+        });
 
 module.exports = router;
