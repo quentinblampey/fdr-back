@@ -19,6 +19,7 @@ const assign = require("./routes/assign");
 const rdv = require("./routes/rdv");
 const creneaux = require("./routes/creneaux");
 const contrats = require("./routes/contrats");
+const slots = require("./routes/slots");
 
 const app = express();
 
