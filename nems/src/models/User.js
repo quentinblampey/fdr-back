@@ -106,7 +106,8 @@ const UserSchema = new mongoose.Schema({
     lifestyle: { type: [Number], default: [] },
     integration: { type: [Number], default: [] },
     noOrientation: { type: [Number], default: [] }
-  }
+  },
+  ue:[],
 });
 
 module.exports = mongoose.model("User", UserSchema);
