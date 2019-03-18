@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
+  textContrat: String,
   registration: Date,
   pseudo: String,
   currentBreak: [Number],
