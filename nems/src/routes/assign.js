@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
-var Slot = require("./Slot");
+var Slot = require("../models/Slot");
 
 function priority(user) {
   return 10 - user.score.mean + 4 * user.aide;
