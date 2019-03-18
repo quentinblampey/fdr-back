@@ -18,6 +18,7 @@ const assign = require("./routes/assign");
 const rdv = require("./routes/rdv");
 const creneaux = require("./routes/creneaux");
 const contrats = require("./routes/contrats");
+const slots = require("./routes/slots");
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.use("/api/stats", stats);
 app.use("/api/rdv", rdv);
 app.use("/api/creneaux", creneaux);
 app.use("/api/contrats", contrats);
+app.use("/api/slots", slots);
 
 // Basic error handling middleware
 app.use(errorHandler);
