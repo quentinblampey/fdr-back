@@ -12,7 +12,12 @@ router.post("/:id", function(req, res, next) {
         let ue = [];
         req.body.UEs.forEach(element => {
             if (element.checked){
-                ue.push({name:element.name, status:"secondary", message:undefined});
+                let aux = user.ue.filter(x => x.name===element.name);
+                if (aux.length > 0){
+                    ue = ue.concat(aux)
+                } else{
+                    ue.push({name:element.name, status:"secondary", message:undefined});
+                }
             }
         });
         user.ue = ue;
