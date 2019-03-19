@@ -66,4 +66,17 @@ router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
   });
 });
 
+router.delete("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear/:id", function(
+  req,
+  res,
+  next
+) {
+  Slot.deleteOne({ _id: req.params.id }, (err, slot) => {
+    if (err) {
+      return next(err);
+    }
+    res.send(slot);
+  });
+});
+
 module.exports = router;
