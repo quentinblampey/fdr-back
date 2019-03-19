@@ -284,7 +284,6 @@ router.get("/current/:id", function(req, res, next) {
         res.json(slot);
       });
     } else {
-      res.setHeader("", 200);
       res.json({ current: "" });
     }
   });
