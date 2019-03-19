@@ -33,6 +33,8 @@ router.post("/:id", function(req, res, next) {
             if (answer.detail === "oui") {
               user.caracteristics.disabled = true;
             }
+          } else if (req.body.field === "foreigner"){
+            user.caracteristics.foreigner = Boolean(answer.detail);
           } else if (req.body.field === "helpMessage") {
             user.aide = true;
             user.aideMessage = answer.body;

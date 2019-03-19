@@ -53,7 +53,7 @@ router.post("/:id", function(req, res, next) {
               let aux=[];
               userfound.ue.forEach(element => {
                   if (element.name===req.body.name){
-                      aux.push({name:element.name, status:element.status, message:req.body.message});
+                      aux.push({name:element.name, status:element.status, message:req.body.comment});
                   }else{
                       aux.push(element);
                   }
