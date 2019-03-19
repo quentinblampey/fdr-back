@@ -16,6 +16,7 @@ const Slot = require("../models/Slot.js");
 router.post("/", function(req, res, next) {
   Slot.create(
     {
+      idU: "NONE",
       date: req.body.date,
       duration: req.body.duration
     },
@@ -51,7 +52,7 @@ router.get("/:id", function(req, res, next) {
 /* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
 
 router.get("/getfree/", function(req, res, next) {
-  Slot.find({ affectation: "" }, function(err, slots) {
+  Slot.find({ affectation: "", idU: { $ne: "NONE" } }, function(err, slots) {
     if (err) {
       return next(err);
     }
@@ -76,6 +77,28 @@ router.delete("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear/:id", function(
       return next(err);
     }
     res.send(slot);
+  });
+});
+
+/* GET USER BY ID */
+router.post("/newrdv/:id", function(req, res, next) {
+  const nhoraire = String(req.body.horr);
+  const nidU = req.params.id;
+  Slot.create({ idU: nidU, date: nhoraire, duration: 15 }, function(err, rdv) {
+    if (err) {
+      return next(err);
+    }
+    res.json(rdv);
+  });
+});
+
+/* GET ALL RDV FOR A USER */
+router.get("/rdvu/:id", function(req, res, next) {
+  Slot.find({ idU: req.params.id }, function(err, rdvs) {
+    if (err) {
+      return next(err);
+    }
+    res.json(rdvs);
   });
 });
 
