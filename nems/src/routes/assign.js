@@ -82,20 +82,16 @@ router.post("/", function(req, res, next) {
       slots.forEach(slot => {
         slotsIDs.push(slot._id);
       });
-      console.log(slotsIDs);
       let usersChoices = [];
       users.forEach(user => {
         if (user.chosenSlots && user.chosenSlots.length > 0) {
-          console.log("slots :", user.chosenSlots);
           usersChoices.push({ user: user, choices: user.chosenSlots });
         }
       });
       assignShort(slotsIDs, usersChoices).forEach(assignement => {
-        console.log("5");
         addSlotUser(assignement.slot, assignement.id, users);
         addUserSlot(assignement.slot, assignement.id, slots);
       });
-      console.log("6");
       res.json("Assignement done!");
     });
   });
