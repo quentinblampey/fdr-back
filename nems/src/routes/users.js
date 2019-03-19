@@ -1,9 +1,11 @@
+/* eslint-disable space-before-function-paren */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable indent */
 /* eslint-disable prefer-arrow-callback */
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.js");
+const Slots = require("../models/Slot.js");
 const updateScore = require("./updateScore").updateScore;
 const fidelity = require("./updateScore").fidelity;
 const saveScore = require("./updateScore").saveScore;
@@ -226,6 +228,55 @@ router.post("/chosen-slots/:id", function(req, res, next) {
       user.save();
     }
     res.json(user);
+  });
+});
+
+/* GETS THE OLD SLOTS OF A USER */
+router.get("/passed-slots/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    const passed = user.passedSlots;
+    if (passed.length > 0) {
+      let slots = [];
+      passed.map(id => {
+        Slots.find({ _id: id }, function(err, slot) {
+          if (err) {
+            return next(err);
+          }
+          slots.push(slot);
+        });
+      });
+      res.json(slots);
+    }
+  });
+});
+
+/* GETS THE NEXT RDV SLOT */
+router.get("/current/:id", function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    let rdv = "";
+    try {
+      rdv = user.currentSlot;
+    } catch (error) {
+      res.setHeader("", 200);
+      res.json();
+    }
+    if (rdv !== "") {
+      Slots.find({ _id: rdv }, function(err, slot) {
+        if (err) {
+          return next(err);
+        }
+        res.json(slot);
+      });
+    } else {
+      res.setHeader("", 200);
+      res.json({ current: "" });
+    }
   });
 });
 
