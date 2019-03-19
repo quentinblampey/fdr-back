@@ -51,9 +51,7 @@ function addSlotUser(slotId, userId, users) {
   for (let user of users) {
     if (user._id === userId) {
       user.currentSlot = slotId;
-      user.chosenSlots.forEach(slotID => {
-        user.passedSlot.push(slotID);
-      });
+      user.passedSlots.push(slotID);
       user.chosenSlots = [];
       user.save();
       break;

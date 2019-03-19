@@ -36,7 +36,7 @@ router.post("/initget", function(req, res, next) {
           },
           nextBreak: nextTrees,
           details: { name: "undefined" },
-          textContrat: ''
+          textContrat: ""
         },
         function(err, post) {
           if (err) return next(err);

@@ -38,6 +38,16 @@ router.get("/", function(req, res, next) {
   });
 });
 
+router.get("/:id", function(req, res, next) {
+  Slot.findById(req.params.id, function(err, slot) {
+    if (err) {
+      return next(err);
+    }
+    res.json(slot);
+    return 0;
+  });
+});
+
 /* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
 
 router.get("/getfree/", function(req, res, next) {
@@ -47,6 +57,12 @@ router.get("/getfree/", function(req, res, next) {
     }
     res.json(slots);
     return 0;
+  });
+});
+
+router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
+  Slot.deleteMany({}, (err, slots) => {
+    res.send(slots);
   });
 });
 
