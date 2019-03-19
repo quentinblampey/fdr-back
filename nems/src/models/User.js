@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   completion: Number,
   aide: { type: Boolean, default: false },
   aideMessage: String,
-  currentSlot: String,
+  currentSlot: { type: [String], default: "" },
   chosenSlots: { type: [String], default: [] },
   passedSlots: { type: [String], default: [] },
   helped: Boolean,

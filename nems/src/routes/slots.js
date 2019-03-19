@@ -34,7 +34,17 @@ router.get("/", function(req, res, next) {
       return next(err);
     }
     res.json(slots);
-    return 0;
+  });
+});
+
+/* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
+
+router.get("/getfree", function(req, res, next) {
+  Slot.find({ affectation: "" }, function(err, slots) {
+    if (err) {
+      return next(err);
+    }
+    res.json(slots);
   });
 });
 
@@ -44,19 +54,6 @@ router.get("/:id", function(req, res, next) {
       return next(err);
     }
     res.json(slot);
-    return 0;
-  });
-});
-
-/* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
-
-router.get("/getfree/", function(req, res, next) {
-  Slot.find({ affectation: "" }, function(err, slots) {
-    if (err) {
-      return next(err);
-    }
-    res.json(slots);
-    return 0;
   });
 });
 
