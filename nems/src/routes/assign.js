@@ -11,7 +11,7 @@ function assign(slots, usersChoices) {
   if (slots.length === 0) {
     return [[], 0];
   } else {
-    let maxPriority = 0;
+    let maxPriority = -1;
     let priorityUser;
     let assigns;
     let priorityRec;
@@ -33,7 +33,7 @@ function assign(slots, usersChoices) {
         }
       }
     }
-    if (maxPriority === 0) {
+    if (maxPriority === -1) {
       return assign(slots.slice(1), usersChoices);
     } else {
       return [assigns, maxPriority];
@@ -51,7 +51,7 @@ function addSlotUser(slotId, userId, users) {
   for (let user of users) {
     if (user._id === userId) {
       user.currentSlot = slotId;
-      user.passedSlots.push(slotID);
+      user.passedSlots.push(slotId);
       user.chosenSlots = [];
       user.save();
       break;
