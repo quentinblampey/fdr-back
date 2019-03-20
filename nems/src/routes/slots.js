@@ -42,7 +42,7 @@ router.get("/", function(req, res, next) {
 /* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
 
 router.get("/getfree", function(req, res, next) {
-  Slot.find({ affectation: "", idU: { $ne: "NONE" } }, function(err, slots) {
+  Slot.find({ affectation: "", idU: "NONE" }, function(err, slots) {
     if (err) {
       return next(err);
     }
