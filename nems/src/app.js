@@ -16,7 +16,6 @@ const enseignants = require("./routes/enseignants");
 const stats = require("./routes/stats");
 const slots = require("./routes/slots");
 const assign = require("./routes/assign");
-const rdv = require("./routes/rdv");
 const creneaux = require("./routes/creneaux");
 const contrats = require("./routes/contrats");
 
@@ -58,7 +57,6 @@ app.use("/api/questions", questions);
 app.use("/api/file", file);
 app.use("/api/enseignants", enseignants);
 app.use("/api/stats", stats);
-app.use("/api/rdv", rdv);
 app.use("/api/creneaux", creneaux);
 app.use("/api/contrats", contrats);
 app.use("/api/slots", slots);

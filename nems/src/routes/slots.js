@@ -10,6 +10,7 @@
 const express = require("express");
 const router = express.Router();
 const Slot = require("../models/Slot.js");
+const User = require("../models/User.js");
 
 /* CREATES NEW CRENEAU FOR THIS WEEK */
 
@@ -41,7 +42,7 @@ router.get("/", function(req, res, next) {
 /* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
 
 router.get("/getfree", function(req, res, next) {
-  Slot.find({ affectation: "" }, function(err, slots) {
+  Slot.find({ affectation: "", idU: { $ne: "NONE" } }, function(err, slots) {
     if (err) {
       return next(err);
     }
@@ -96,6 +97,36 @@ router.get("/rdvu/:id", function(req, res, next) {
       return next(err);
     }
     res.json(rdvs);
+  });
+});
+
+/* ACCEPTS THE RDV FOR A SINGLE USER */
+router.put("/rdvOK/:id", function(req, res, next) {
+  Slot.findOne({ idU: req.params.id, _id: req.body.idRDV }, function(err, rdv) {
+    if (err) {
+      return next(err);
+    }
+    console.log(rdv);
+    rdv.affectation = req.body.idRDV;
+    console.log(rdv);
+    rdv.save().then(() => {
+      Slot.deleteMany({ idU: req.params.id, affectation: "" }, function(
+        err,
+        oldRdv
+      ) {
+        if (err) {
+          return next(err);
+        }
+      });
+    });
+    User.findById(req.params.id, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      user.currentSlot = rdv._id;
+      user.save();
+    });
+    res.json(rdv);
   });
 });
 
