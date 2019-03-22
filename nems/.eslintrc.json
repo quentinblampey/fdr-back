@@ -19,7 +19,6 @@
     "no-plusplus": "error",
     "no-var": "error",
     "object-shorthand": ["error", "always", { "avoidQuotes": true }],
-    "prefer-arrow-callback": "error",
     "prefer-rest-params": "warn",
     "prefer-spread": "warn",
     "semi": [2, "always"],

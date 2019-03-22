@@ -18,7 +18,8 @@ router.post("/:id", function(req, res, next) {
             ue.push({
               name: element.name,
               status: "secondary",
-              message: undefined
+              message: undefined,
+              dateValid: ""
             });
           }
         }
@@ -36,12 +37,25 @@ router.post("/options/:id", function(req, res, next) {
       return next(err);
     } else {
       let aux = [];
+      let dateValidation = "Validé en ";
+      if (String(req.body.status) === "success") {
+        let date = new Date();
+        const year = date.getFullYear();
+        let month = date.getMonth();
+        if (month < 8) {
+          dateValidation += String(year - 1) + "/" + String(year);
+        } else {
+          dateValidation += String(year) + "/" + String(year + 1);
+        }
+      }
+      console.log(dateValidation);
       userfound.ue.forEach(element => {
         if (element.name === req.body.name) {
           aux.push({
             name: element.name,
             status: req.body.status,
-            message: element.message
+            message: element.message,
+            dateValid: dateValidation
           });
         } else {
           aux.push(element);
