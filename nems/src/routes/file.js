@@ -19,18 +19,22 @@ var upload = multer({ storage: storage });
 
 // THIS ROUTE IS USED TO UPLOAD A FILE CONTAINING THE NEW QUESTIONS TREE
 
-router.post("/newfile", upload.single("file"), function(req, res, next) {
-  var obj = JSON.parse(fs.readFileSync("./uploads/current", "utf8"));
-  Question.deleteMany({}, (err, del) => {
-    Question.insertMany(obj, (err, ins) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(ins);
-      }
+router.post(
+  "/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/newfile",
+  upload.single("file"),
+  function(req, res, next) {
+    var obj = JSON.parse(fs.readFileSync("./uploads/current", "utf8"));
+    Question.deleteMany({}, (err, del) => {
+      Question.insertMany(obj, (err, ins) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(ins);
+        }
+      });
     });
-  });
-});
+  }
+);
 
 router.post("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(
   req,
