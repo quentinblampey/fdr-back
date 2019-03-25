@@ -202,7 +202,7 @@ router.put("/endchat/:id", function(req, res, next) {
 
 /* SAVE USER SCORES */
 
-router.put("/save_scores", function(req, res, next) {
+router.get("/save_scores", function(req, res, next) {
   User.find({}, (err, users) => {
     users.forEach(user => {
       saveScore(user);

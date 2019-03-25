@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
 /* eslint-disable prefer-arrow-callback */
@@ -7,6 +8,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const errorHandler = require("./error-handler").handler();
+const axios = require("axios");
 
 const users = require("./routes/users");
 const answers = require("./routes/answers");
@@ -61,5 +63,28 @@ app.use("/api/slots", slots);
 
 // Basic error handling middleware
 app.use(errorHandler);
+
+/* HORLOGE DE MISE À JOUR DES INDICATEURS */
+let date = new Date();
+
+function intervalFunc() {
+  const newDate = new Date();
+  const day = newDate.getDate();
+  if (day === date.getDate()) {
+    date = newDate;
+    console.log(
+      "Nouvelle journée : " + date + ", mise à jour des indicateurs!"
+    );
+    axios.put(`http://localhost:8080/api/users/save_scores`).catch(error => {
+      console.log("axios error: " + error);
+    });
+  } else {
+    console.log("Serveur Online!");
+  }
+}
+
+const time = (1000 * 60) / 4;
+
+setInterval(intervalFunc, time);
 
 module.exports = app;
