@@ -19,6 +19,7 @@ router.post("/:id", function(req, res, next) {
               name: element.name,
               status: "secondary",
               message: undefined,
+              missing: [],
               dateValid: ""
             });
           }
@@ -68,25 +69,38 @@ router.post("/options/:id", function(req, res, next) {
   });
 });
 
-router.post("/comment/:id", function(req, res, next) {
+router.post("/modal/:id", function(req, res, next) {
+  console.log(req.body);
   User.findById(req.params.id, function(err, userfound) {
     if (err) {
       return next(err);
     } else {
       let aux = [];
+      console.log(userfound.ue);
       userfound.ue.forEach(element => {
         if (element.name === req.body.name) {
-          aux.push({
-            name: element.name,
-            status: element.status,
-            message: req.body.comment
-          });
+          if (req.body.field==='missing'){
+            aux.push({
+              name: element.name,
+              status: element.status,
+              message: element.message, 
+              missing : element.missing.concat(req.body.comment)
+            });
+          }else{
+            aux.push({
+              name: element.name,
+              status: element.status,
+              message: req.body.comment, 
+              missing : element.missing
+            });
+          }
         } else {
           aux.push(element);
         }
       });
       userfound.ue = aux;
       userfound.save();
+      console.log(userfound.ue);
       res.send(userfound);
     }
   });
