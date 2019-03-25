@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var engagement = require("./Engagement").schema;
 
 const UserSchema = new mongoose.Schema({
   textContrat: String,
@@ -7,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   currentBreak: [Number],
   nextBreak: [Number],
   completion: Number,
+  engagements: { type: [engagement], default: [] },
   aide: { type: Boolean, default: false },
   aideMessage: String,
   currentSlot: { type: String, default: "" },
