@@ -217,6 +217,18 @@ router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
   });
 });
 
+/* GET ALL USERS */
+
+router.get("/number", function(req, res, next) {
+  User.find(function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    const nb = users.length;
+    res.json({ nombre: nb });
+  });
+});
+
 // ADD CONTRACT TEXT
 
 router.post("/textContrat/:id", function(req, res, next) {
