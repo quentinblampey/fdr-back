@@ -19,6 +19,7 @@ const stats = require("./routes/stats");
 const slots = require("./routes/slots");
 const assign = require("./routes/assign");
 const contrats = require("./routes/contrats");
+const engagements = require("./routes/engagements");
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.use("/api/enseignants", enseignants);
 app.use("/api/stats", stats);
 app.use("/api/contrats", contrats);
 app.use("/api/slots", slots);
+app.use("/api/engagements", engagements);
 
 // Basic error handling middleware
 app.use(errorHandler);
