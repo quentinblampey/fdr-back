@@ -310,11 +310,33 @@ function updateScore(user) {
 // SAVE SCORE OF THE USER IN HIS HISTORIC
 
 function saveScore(user) {
-  user.historicScores.motivation.push(user.score.motivation);
-  user.historicScores.lifestyle.push(user.score.lifestyle);
-  user.historicScores.fidelity.push(user.score.fidelity);
-  user.historicScores.integration.push(user.score.integration);
-  user.historicScores.noOrientation.push(user.score.noOrientation);
+  if (
+    user.historicScores.noOrientation.length === 0 ||
+    (user.score.motivation !==
+      user.historicScores.motivation[
+        user.historicScores.motivation.length - 1
+      ] ||
+      user.score.fidelity !==
+        user.historicScores.fidelity[user.historicScores.fidelity.length - 1] ||
+      user.score.motivation !==
+        user.historicScores.motivation[
+          user.historicScores.motivation.length - 1
+        ] ||
+      user.score.integration !==
+        user.historicScores.integration[
+          user.historicScores.integration.length - 1
+        ] ||
+      user.score.noOrientation !==
+        user.historicScores.noOrientation[
+          user.historicScores.noOrientation.length - 1
+        ])
+  ) {
+    user.historicScores.motivation.push(user.score.motivation);
+    user.historicScores.lifestyle.push(user.score.lifestyle);
+    user.historicScores.fidelity.push(user.score.fidelity);
+    user.historicScores.integration.push(user.score.integration);
+    user.historicScores.noOrientation.push(user.score.noOrientation);
+  }
 }
 
 module.exports = {
