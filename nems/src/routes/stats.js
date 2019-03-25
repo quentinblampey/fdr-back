@@ -47,7 +47,7 @@ router.post("/profils", (req, res, next) => {
         taille += 1;
       });
       proportions.push(
-        parseFloat(Math.round((1000 * nb) / taille) / 10).toFixed(1)
+        parseFloat(Math.round((1000 * nb) / taille) / 10).toFixed(0)
       );
     });
     res.send({ proportions: proportions });
