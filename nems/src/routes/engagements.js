@@ -13,6 +13,7 @@ router.post("/validate/:idE/:idU", function(req, res, next) {
         engagement.isValidated = true;
       }
     });
+    user.save();
     res.json(user);
   });
 });
@@ -25,6 +26,7 @@ router.post("/comment/:idE/:idU", function(req, res, next) {
         engagement.teacher = req.body.comment;
       }
     });
+    user.save();
     res.json(user);
   });
 });
