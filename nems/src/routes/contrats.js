@@ -49,7 +49,6 @@ router.post("/options/:id", function(req, res, next) {
           dateValidation += String(year) + "/" + String(year + 1);
         }
       }
-      console.log(dateValidation);
       userfound.ue.forEach(element => {
         if (element.name === req.body.name) {
           aux.push({
@@ -79,19 +78,19 @@ router.post("/modal/:id", function(req, res, next) {
       console.log(userfound.ue);
       userfound.ue.forEach(element => {
         if (element.name === req.body.name) {
-          if (req.body.field==='missing'){
+          if (req.body.field === "missing") {
             aux.push({
               name: element.name,
               status: element.status,
-              message: element.message, 
-              missing : element.missing.concat(req.body.comment)
+              message: element.message,
+              missing: element.missing.concat(req.body.comment)
             });
-          }else{
+          } else {
             aux.push({
               name: element.name,
               status: element.status,
-              message: req.body.comment, 
-              missing : element.missing
+              message: req.body.comment,
+              missing: element.missing
             });
           }
         } else {
