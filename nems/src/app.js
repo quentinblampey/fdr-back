@@ -9,6 +9,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const errorHandler = require("./error-handler").handler();
 const axios = require("axios");
+const User = require("./models/User.js");
+const saveScore = require("./routes/updateScore").saveScore;
 
 const users = require("./routes/users");
 const answers = require("./routes/answers");
@@ -77,11 +79,16 @@ function intervalFunc() {
     console.log(
       "Nouvelle journée : " + date + ", mise à jour des indicateurs!"
     );
-    axios.put(`http://localhost:8080/api/users/save_scores`).catch(error => {
-      console.log("axios error: " + error);
+    User.find({}, (err, users) => {
+      if (err) return next(err);
+      users.forEach(user => {
+        saveScore(user);
+        user.save();
+      });
     });
   } else {
     console.log("Serveur Online!");
+    date = newDate;
   }
 }
 
