@@ -9,7 +9,8 @@ router.post("/validate/:idE/:idU", function(req, res, next) {
   User.findById(req.params.idU, function(err, user) {
     if (err) return next(err);
     user.engagements.forEach(engagement => {
-      if (engagement._id === req.params.idE) {
+      if (String(engagement._id) === String(req.params.idE)) {
+        console.log("changing");
         engagement.isValidated = true;
       }
     });
@@ -22,7 +23,7 @@ router.post("/comment/:idE/:idU", function(req, res, next) {
   User.findById(req.params.idU, function(err, user) {
     if (err) return next(err);
     user.engagements.forEach(engagement => {
-      if (engagement._id === req.params.idE) {
+      if (String(engagement._id) === String(req.params.idE)) {
         engagement.teacher = req.body.comment;
       }
     });
