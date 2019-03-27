@@ -87,7 +87,7 @@ function intervalFunc() {
   }
 }
 
-const time = (1000 * 60) / 4;
+const time = (1000 * 60) / 2;
 
 setInterval(intervalFunc, time);
 
