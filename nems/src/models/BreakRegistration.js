@@ -1,8 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 var BreakRegistrationSchema = new mongoose.Schema({
-  idQ: Number,
+  idQ: Number
 });
 
-//module.exports = mongoose.model('BreakRegistration', BreakRegistrationSchema);
-module.exports = BreakRegistrationSchema
+module.exports = BreakRegistrationSchema;
