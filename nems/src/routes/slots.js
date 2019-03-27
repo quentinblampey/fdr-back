@@ -3,7 +3,12 @@ const router = express.Router();
 const Slot = require("../models/Slot.js");
 const User = require("../models/User.js");
 
-/* CREATES NEW CRENEAU FOR THIS WEEK */
+/*
+  Role    | Create a slot.
+  Params  | None
+  Body    | date : date of the slot, duration : duration of the slot
+  Returns | The slot created.
+*/
 
 router.post("/", function(req, res, next) {
   Slot.create(
@@ -19,7 +24,12 @@ router.post("/", function(req, res, next) {
   );
 });
 
-/* GETS ALL THE SLOTS */
+/*
+  Role    | Get all the slots.
+  Params  | None
+  Body    | None
+  Returns | The slots.
+*/
 
 router.get("/", function(req, res, next) {
   Slot.find(function(err, slots) {
@@ -30,7 +40,12 @@ router.get("/", function(req, res, next) {
   });
 });
 
-/* GETS ALL THE FREE SLOTS OF THE WEEK TO PROPOSE THEM TO THE STUDENT */
+/*
+  Role    | Get all the free slots (not assigned).
+  Params  | None
+  Body    | None
+  Returns | The free slots.
+*/
 
 router.get("/getfree", function(req, res, next) {
   Slot.find({ affectation: "", idU: "NONE" }, function(err, slots) {
@@ -41,6 +56,13 @@ router.get("/getfree", function(req, res, next) {
   });
 });
 
+/*
+  Role    | Get a slot by its id.
+  Params  | id : slot id
+  Body    | None
+  Returns | The slot.
+*/
+
 router.get("/:id", function(req, res, next) {
   Slot.findById(req.params.id, function(err, slot) {
     if (err) {
@@ -50,17 +72,27 @@ router.get("/:id", function(req, res, next) {
   });
 });
 
+/*
+  Role    | Clear all slots.
+  Params  | None
+  Body    | None
+  Returns | The suppression.
+*/
+
 router.get("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear", function(req, res, next) {
   Slot.deleteMany({}, (err, slots) => {
     res.send(slots);
   });
 });
 
-router.delete("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear/:id", function(
-  req,
-  res,
-  next
-) {
+/*
+  Role    | Delete a slot by its id.
+  Params  | id : slot id.
+  Body    | None
+  Returns | The suppressed slot.
+*/
+
+router.delete("/clear/:id", function(req, res, next) {
   Slot.deleteOne({ _id: req.params.id }, (err, slot) => {
     if (err) {
       return next(err);
@@ -69,7 +101,13 @@ router.delete("/TbAa3CpZXgS1apnKjCnj3VdnkIxMhlny/clear/:id", function(
   });
 });
 
-/* GET USER BY ID */
+/*
+  Role    | Delete a slot for a given user.
+  Params  | id : user id.
+  Body    | horr : start of the slot
+  Returns | The slot.
+*/
+
 router.post("/newrdv/:id", function(req, res, next) {
   const nhoraire = String(req.body.horr);
   const nidU = req.params.id;
@@ -81,7 +119,13 @@ router.post("/newrdv/:id", function(req, res, next) {
   });
 });
 
-/* GET ALL RDV FOR A USER */
+/*
+  Role    | Get all the slot for a given user.
+  Params  | id : user id.
+  Body    | None
+  Returns | The slots.
+*/
+
 router.get("/rdvu/:id", function(req, res, next) {
   Slot.find({ idU: req.params.id }, function(err, rdvs) {
     if (err) {
@@ -91,7 +135,13 @@ router.get("/rdvu/:id", function(req, res, next) {
   });
 });
 
-/* ACCEPTS THE RDV FOR A SINGLE USER */
+/*
+  Role    | Accept the slot asked by a single user.
+  Params  | id : user id.
+  Body    | idRDV : slot id.
+  Returns | The slot.
+*/
+
 router.put("/rdvOK/:id", function(req, res, next) {
   Slot.findOne({ idU: req.params.id, _id: req.body.idRDV }, function(err, rdv) {
     if (err) {

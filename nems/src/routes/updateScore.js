@@ -1,6 +1,6 @@
-/* eslint-disable indent */
-/* eslint-disable vars-on-top */
-/* eslint-disable no-var */
+/*
+  Computes the fidelity of the user.
+*/
 function fidelity(user) {
   if (user.numberChats.length === 0) {
     return 0;
@@ -54,6 +54,9 @@ function fidelity(user) {
   }
 }
 
+/*
+  Computes the motivation of the user.
+*/
 function motivation(user) {
   let res = 0;
   let weights = 0;
@@ -98,6 +101,9 @@ function motivation(user) {
   }
 }
 
+/*
+  Computes the lifestyle of the user.
+*/
 function lifestyle(user) {
   let res = 0;
   let weights = 0;
@@ -189,6 +195,9 @@ function lifestyle(user) {
   }
 }
 
+/*
+  Computes the orientation of the user.
+*/
 function noOrientation(user) {
   let res = 0;
   let weights = 0;
@@ -216,6 +225,9 @@ function noOrientation(user) {
   }
 }
 
+/*
+  Computes the integration of the user.
+*/
 function integration(user) {
   let res = 0;
   let weights = 0;
@@ -270,8 +282,9 @@ function integration(user) {
   }
 }
 
-// FUNCTION THAT UPDATE SCORES OF THE USER, EXCEPT FIDELITY, THAT SHOULD BE CALCULATED AT THE END OF A CHAT
-
+/*
+  Updates the scores of the user, except for fidelity that should be calculated at the end of a chat.
+*/
 function updateScore(user) {
   user.score.motivation = motivation(user);
   user.score.lifestyle = lifestyle(user);
@@ -307,8 +320,9 @@ function updateScore(user) {
   }
 }
 
-// SAVE SCORE OF THE USER IN HIS HISTORIC
-
+/*
+  Save user indicators in his historic.
+*/
 function saveScore(user) {
   if (
     user.historicScores.noOrientation.length === 0 ||

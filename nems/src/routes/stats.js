@@ -6,7 +6,12 @@ const val1 = 3;
 const val2 = 7;
 const topercent = 100;
 
-// This fontion computes the global statics in order to draw the repartition charts
+/*
+  Role    | Computes the global statics in order to draw the repartition charts.
+  Params  | None
+  Body    | field : the field used to compute the stats.
+  Returns | The stat.
+*/
 
 router.post("/global", (req, res, next) => {
   let nb = [0, 0, 0];
@@ -33,9 +38,15 @@ router.post("/global", (req, res, next) => {
   });
 });
 
+/*
+  Role    | Computes the proportions used for the polar chart.
+  Params  | None
+  Body    | profil : the list of caracterisctics (disabled, foreigner,...)
+  Returns | The proportions.
+*/
+
 router.post("/profils", (req, res, next) => {
   let proportions = [];
-  let taille = 0;
   User.find({}, async (err, users) => {
     req.body.profils.forEach(profil => {
       let nb = 0;

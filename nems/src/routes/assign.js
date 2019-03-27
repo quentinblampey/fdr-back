@@ -3,9 +3,17 @@ const router = express.Router();
 const User = require("../models/User.js");
 const Slot = require("../models/Slot.js");
 
+/*
+  Function used to calculate the priority of a user.
+  If there is a conflict of the kind 'two user for one slot', this function will be used to choose the user with greater priority.
+*/
 function priority(user) {
   return 10 - user.score.mean + 4 * user.aide;
 }
+
+/*
+  Given slots ids and the slots chosen by the users, returns a list containing some { id : id of the user, slot : id of the slot assigned } and the sum of priorities.
+*/
 
 function assign(slots, usersChoices) {
   if (slots.length === 0) {
@@ -68,6 +76,13 @@ function addUserSlot(slotId, userId, slots) {
     }
   }
 }
+
+/*
+  Role    | Assign the students to a slot after their have chosen between different slots proposed by their teacher.
+  Params  | None
+  Body    | None
+  Returns | None
+*/
 
 router.post("/", function(req, res, next) {
   User.find({}, function(err, users) {
