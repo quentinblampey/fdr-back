@@ -1,3 +1,9 @@
+/*
+Takes in argument a question and a table of details.
+Builds the body text of the function, including the personal data in the text field.
+Distiguishes the question by its id, an behaves accordingly.
+Returns a question with its body updated.
+*/
 var construct = function(question, details) {
   switch (question.idQ) {
     case 2:
