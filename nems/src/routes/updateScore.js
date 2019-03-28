@@ -1,3 +1,6 @@
+/*
+  Computes the fidelity of the user.
+*/
 function fidelity(user) {
   if (user.numberChats.length === 0) {
     return 0;
@@ -51,6 +54,9 @@ function fidelity(user) {
   }
 }
 
+/*
+  Computes the motivation of the user.
+*/
 function motivation(user) {
   let res = 0;
   let weights = 0;
@@ -95,6 +101,9 @@ function motivation(user) {
   }
 }
 
+/*
+  Computes the lifestyle of the user.
+*/
 function lifestyle(user) {
   let res = 0;
   let weights = 0;
@@ -186,6 +195,9 @@ function lifestyle(user) {
   }
 }
 
+/*
+  Computes the orientation of the user.
+*/
 function noOrientation(user) {
   let res = 0;
   let weights = 0;
@@ -213,6 +225,9 @@ function noOrientation(user) {
   }
 }
 
+/*
+  Computes the integration of the user.
+*/
 function integration(user) {
   let res = 0;
   let weights = 0;
@@ -267,8 +282,9 @@ function integration(user) {
   }
 }
 
-// FUNCTION THAT UPDATE SCORES OF THE USER, EXCEPT FIDELITY, THAT SHOULD BE CALCULATED AT THE END OF A CHAT
-
+/*
+  Updates the scores of the user, except for fidelity that should be calculated at the end of a chat.
+*/
 function updateScore(user) {
   user.score.motivation = motivation(user);
   user.score.lifestyle = lifestyle(user);
@@ -304,14 +320,37 @@ function updateScore(user) {
   }
 }
 
-// SAVE SCORE OF THE USER IN HIS HISTORIC
-
+/*
+  Save user indicators in his historic.
+*/
 function saveScore(user) {
-  user.historicScores.motivation.push(user.score.motivation);
-  user.historicScores.lifestyle.push(user.score.lifestyle);
-  user.historicScores.fidelity.push(user.score.fidelity);
-  user.historicScores.integration.push(user.score.integration);
-  user.historicScores.noOrientation.push(user.score.noOrientation);
+  if (
+    user.historicScores.noOrientation.length === 0 ||
+    (user.score.motivation !==
+      user.historicScores.motivation[
+        user.historicScores.motivation.length - 1
+      ] ||
+      user.score.fidelity !==
+        user.historicScores.fidelity[user.historicScores.fidelity.length - 1] ||
+      user.score.motivation !==
+        user.historicScores.motivation[
+          user.historicScores.motivation.length - 1
+        ] ||
+      user.score.integration !==
+        user.historicScores.integration[
+          user.historicScores.integration.length - 1
+        ] ||
+      user.score.noOrientation !==
+        user.historicScores.noOrientation[
+          user.historicScores.noOrientation.length - 1
+        ])
+  ) {
+    user.historicScores.motivation.push(user.score.motivation);
+    user.historicScores.lifestyle.push(user.score.lifestyle);
+    user.historicScores.fidelity.push(user.score.fidelity);
+    user.historicScores.integration.push(user.score.integration);
+    user.historicScores.noOrientation.push(user.score.noOrientation);
+  }
 }
 
 module.exports = {

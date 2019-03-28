@@ -1,29 +1,29 @@
 {
-    "env": {
-        "jest": true,
-        "node": true
-    },
-    "extends": "standard",
-    "rules": {
-        "array-callback-return": "error",
-        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
-        "comma-dangle": ["error", "always-multiline"],
-        "curly": [2, "all"],
-        "id-length": ["error", { "exceptions": ["_"] }],
-        "indent": ["error", 4],
-        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
-        "no-confusing-arrow": "warn",
-        "no-magic-numbers":["error",{ "ignoreArrayIndexes": true, "ignore": [-1, 0, 1, 1000] }],
-        "no-param-reassign":"error",
-        "no-extra-semi": "warn",
-        "no-plusplus":"error",
-        "no-var": "error",
-        "object-shorthand": ["error", "always", { "avoidQuotes": true }],
-        "prefer-arrow-callback":"error",
-        "prefer-rest-params":"warn",
-        "prefer-spread":"warn",
-        "semi": [2, "always"],
-        "valid-jsdoc": "warn",
-        "vars-on-top":"error"
-    }
+  "env": {
+    "jest": true,
+    "node": true
+  },
+  "extends": "standard",
+  "rules": {
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "comma-dangle": ["error", "always-multiline"],
+    "id-length": ["error", { "exceptions": ["_"] }],
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "no-confusing-arrow": "warn",
+    "no-magic-numbers": [
+      "error",
+      { "ignoreArrayIndexes": true, "ignore": [-1, 0, 1, 1000] }
+    ],
+    "no-param-reassign": "error",
+    "no-extra-semi": "warn",
+    "no-plusplus": "error",
+    "no-var": "error",
+    "object-shorthand": ["error", "always", { "avoidQuotes": true }],
+    "prefer-rest-params": "warn",
+    "prefer-spread": "warn",
+    "semi": [2, "always"],
+    "valid-jsdoc": "warn",
+    "vars-on-top": "error",
+    "quotes": "off"
+  }
 }
