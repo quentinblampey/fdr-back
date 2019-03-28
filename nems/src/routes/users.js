@@ -98,6 +98,23 @@ router.post("/aide/:id/:help", function(req, res, next) {
 });
 
 /*
+  Role    | Get helped users.
+  Params  | None.
+  Body    | None
+  Returns | The users.
+*/
+router.get("/helped", function(req, res, next) {
+  var queryParam = {};
+  queryParam["helped"] = true;
+  User.find(queryParam, function(err, users) {
+    if (err) {
+      return next(err);
+    }
+    res.json(users);
+  });
+});
+
+/*
   Role    | Help a user by id.
   Params  | id : user id.
   Body    | None
